@@ -15,6 +15,7 @@ struct HomeView: View {
     @State var selectedWorkTask: Bool = false
     
     var body: some View {
+        VStack {
             HeaderView(showAddEducationTaskView: $showAddEducationTaskView, showAddWorkTaskView: $showAddWorkTaskView, selectedProfession: $roadMapViewModel.selectedProfession)
                 .padding(.horizontal, 5)
             

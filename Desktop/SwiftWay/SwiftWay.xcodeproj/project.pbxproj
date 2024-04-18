@@ -58,7 +58,7 @@
 		BE6A5F142B51495A00675AE6 /* UserProgressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6A5F132B51495A00675AE6 /* UserProgressViewModel.swift */; };
 		BE6A5F162B5152F800675AE6 /* QuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6A5F152B5152F800675AE6 /* QuizView.swift */; };
 		BE7180BC2BB082520010148D /* MentorsSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7180BB2BB082520010148D /* MentorsSectionView.swift */; };
-		BE75D89A29C9FBE300DED380 /* TheSwift_sNestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE75D89929C9FBE300DED380 /* TheSwift_sNestApp.swift */; };
+		BE75D89A29C9FBE300DED380 /* SwiftWayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE75D89929C9FBE300DED380 /* SwiftWayApp.swift */; };
 		BE75D89E29C9FBE400DED380 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE75D89D29C9FBE400DED380 /* Assets.xcassets */; };
 		BE75D8A129C9FBE400DED380 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE75D8A029C9FBE400DED380 /* Preview Assets.xcassets */; };
 		BE771B2C2BC6FC05009827A3 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE771B2B2BC6FC05009827A3 /* Launch Screen.storyboard */; };
@@ -73,13 +73,13 @@
 		BEA324BA2BBA844200F6011B /* TipViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA324B92BBA844200F6011B /* TipViewModel.swift */; };
 		BEA324BC2BBAC4D200F6011B /* MentorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA324BB2BBAC4D200F6011B /* MentorViewModel.swift */; };
 		BEA3490C2B1DE93F00B5D6DA /* RatingSubCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA3490B2B1DE93F00B5D6DA /* RatingSubCategoryView.swift */; };
-		BEB2D64F2BD1A01700A6977E /* SwiftWay-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BEB2D64E2BD1A01300A6977E /* SwiftWay-Info.plist */; };
 		BED61D0A2BC7CE6F009B66A6 /* CustomText.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED61D092BC7CE6F009B66A6 /* CustomText.swift */; };
 		BEE918862B17447800793470 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE918852B17447800793470 /* HeaderView.swift */; };
 		BEE918882B17457100793470 /* ProgressSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE918872B17457100793470 /* ProgressSectionView.swift */; };
 		BEE9188A2B174A7600793470 /* TopsSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE918892B174A7600793470 /* TopsSectionView.swift */; };
 		BEE9188C2B174B0800793470 /* TipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE9188B2B174B0800793470 /* TipView.swift */; };
 		BEE9188E2B17625600793470 /* CustomPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE9188D2B17625600793470 /* CustomPickerView.swift */; };
+		BEEDEE092BD1A6030033F4D7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BEEDEE082BD1A6030033F4D7 /* GoogleService-Info.plist */; };
 		BEFC44BD2B1A768D00D9F9E7 /* Query+EXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFC44BC2B1A768D00D9F9E7 /* Query+EXT.swift */; };
 /* End PBXBuildFile section */
 
@@ -129,7 +129,7 @@
 		BE6A5F152B5152F800675AE6 /* QuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizView.swift; sourceTree = "<group>"; };
 		BE7180BB2BB082520010148D /* MentorsSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentorsSectionView.swift; sourceTree = "<group>"; };
 		BE75D89629C9FBE300DED380 /* SwiftWay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftWay.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		BE75D89929C9FBE300DED380 /* TheSwift_sNestApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheSwift_sNestApp.swift; sourceTree = "<group>"; };
+		BE75D89929C9FBE300DED380 /* SwiftWayApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftWayApp.swift; sourceTree = "<group>"; };
 		BE75D89D29C9FBE400DED380 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BE75D8A029C9FBE400DED380 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BE771B2B2BC6FC05009827A3 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
@@ -151,6 +151,7 @@
 		BEE918892B174A7600793470 /* TopsSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopsSectionView.swift; sourceTree = "<group>"; };
 		BEE9188B2B174B0800793470 /* TipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipView.swift; sourceTree = "<group>"; };
 		BEE9188D2B17625600793470 /* CustomPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPickerView.swift; sourceTree = "<group>"; };
+		BEEDEE082BD1A6030033F4D7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BEFC44BC2B1A768D00D9F9E7 /* Query+EXT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Query+EXT.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -419,9 +420,10 @@
 			isa = PBXGroup;
 			children = (
 				BEB2D64E2BD1A01300A6977E /* SwiftWay-Info.plist */,
-				BE75D89929C9FBE300DED380 /* TheSwift_sNestApp.swift */,
+				BE75D89929C9FBE300DED380 /* SwiftWayApp.swift */,
 				BE2444B92AF4FE4300385766 /* Service */,
 				BE2444BC2AF4FEBF00385766 /* Core */,
+				BEEDEE082BD1A6030033F4D7 /* GoogleService-Info.plist */,
 				BE75D89D29C9FBE400DED380 /* Assets.xcassets */,
 				BE75D89F29C9FBE400DED380 /* Preview Content */,
 			);
@@ -491,7 +493,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1420;
-				LastUpgradeCheck = 1420;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					BE75D89529C9FBE300DED380 = {
 						CreatedOnToolsVersion = 14.2;
@@ -525,8 +527,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BEB2D64F2BD1A01700A6977E /* SwiftWay-Info.plist in Resources */,
 				BE75D8A129C9FBE400DED380 /* Preview Assets.xcassets in Resources */,
+				BEEDEE092BD1A6030033F4D7 /* GoogleService-Info.plist in Resources */,
 				BE771B2C2BC6FC05009827A3 /* Launch Screen.storyboard in Resources */,
 				BE75D89E29C9FBE400DED380 /* Assets.xcassets in Resources */,
 			);
@@ -587,7 +589,7 @@
 				BE2444B82AF4FDC100385766 /* OnBoardingView.swift in Sources */,
 				BE2444E82AF5371500385766 /* ProgressBar.swift in Sources */,
 				BEFC44BD2B1A768D00D9F9E7 /* Query+EXT.swift in Sources */,
-				BE75D89A29C9FBE300DED380 /* TheSwift_sNestApp.swift in Sources */,
+				BE75D89A29C9FBE300DED380 /* SwiftWayApp.swift in Sources */,
 				BEE918882B17457100793470 /* ProgressSectionView.swift in Sources */,
 				BE2444BF2AF4FF5900385766 /* RoadMapModel.swift in Sources */,
 				BE2444C62AF5000A00385766 /* RoadMapViewModel.swift in Sources */,
@@ -644,6 +646,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -704,6 +707,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
