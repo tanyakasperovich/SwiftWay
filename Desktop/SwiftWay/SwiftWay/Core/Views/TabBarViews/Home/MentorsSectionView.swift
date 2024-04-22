@@ -9,6 +9,8 @@ import SwiftUI
 
 struct MentorsSectionView: View {
     @StateObject private var mentorViewModel = MentorViewModel()
+   // @Binding var selectedProfession: Professions
+    var selectedProfession: Professions
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -18,6 +20,34 @@ struct MentorsSectionView: View {
                 .padding(.top, 5)
                 .foregroundStyle(Color.theme.fontColorBW)
                 .opacity(0.7)
+            
+            VStack(alignment: .leading) {
+                Text("💥 Hot Pick For You")
+                    .font(.body)
+                    .bold()
+                    .padding(.horizontal)
+                    .foregroundStyle(Color.theme.fontColorBW)
+                    .padding(.vertical, 5)
+                
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        Spacer(minLength: 15)
+                        ForEach(mentorViewModel.mentors) { mentor in
+                            NavigationLink {
+                                MentorView(mentor: mentor, color: selectedProfession.accentColor)
+                            } label: {
+                                Circle()
+                                    .foregroundStyle(selectedProfession.accentColor)
+                                    .frame(width: 70)
+                                    .shadow(color: Color.black, radius: 1, x: 1, y: -1)
+                                    .padding(.top, 2)
+                            }
+                        }
+                        Spacer(minLength: 8)
+                    }
+                }
+            }
+            
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
@@ -34,31 +64,6 @@ struct MentorsSectionView: View {
             }
             .frame(height: 220)
             
-            Text("💥 Hot Pick For You")
-                .font(.body)
-                .bold()
-                .padding(.horizontal)
-                .foregroundStyle(Color.theme.fontColorBW)
-                .padding(.vertical, 5)
-            
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack {
-                    Spacer(minLength: 15)
-                    ForEach(mentorViewModel.mentors) { mentor in
-                        NavigationLink {
-                            MentorView(mentor: mentor)
-                        } label: {
-                            
-                            Circle()
-                                .frame(width: 70)
-                                .shadow(color: Color.black, radius: 1, x: 1, y: -1)
-                                .padding(.top, 2)
-                        }
-                    }
-                    Spacer(minLength: 8)
-                }
-            }
-   
         }
         .padding(.bottom, 10)
     }
@@ -66,7 +71,7 @@ struct MentorsSectionView: View {
 
 #Preview {
     NavigationStack {
-          MentorsSectionView()
+        MentorsSectionView(selectedProfession: Professions.iosDeveloper)
 //        MentorView(mentor:  MentorModel(name: "Name NameName", image: "Marni2", speciality: [.iosDeveloper, .productDesigner], price: 15.0, rating: 0.0, reviews: [ReviewModel(nameAuthor: "Name Surname", review: "Review review review review review review. review, review review review review review, reviewreview.", date: Date.now), ReviewModel(nameAuthor: "Name Surname", review: "Review review review review review review. review, review review review review review, reviewreview.", date: Date.now)], linkedInLink: "", instagramLink: "", youTubeLink: "", link: "", description: "I'm a senior IOS developer at Name with 7+ years of experience in the design industry. I'm sharing educational content on my social media accounts, where I incteract with more than 200k followers.", students: [], skills: [SkillModel(title: "Skill title 1", description: "Skill description"), SkillModel(title: "Skill title 2", description: "Skill description"), SkillModel(title: "Skill title 3", description: "Skill description")]))
     }
 }
@@ -111,7 +116,7 @@ struct ProfessionCardView: View {
             .foregroundStyle(Color.theme.fontColorBW)
         }
             .padding(8)
-                 , color: Color.accentColor)
+                 , color: profession.accentColor)
         .padding(.top, 5)
         .frame(width: 300)
     }
@@ -130,9 +135,9 @@ struct MentorListView: View {
             
             ForEach(filterMentorsForSpeciality) { mentor in
                 NavigationLink {
-                    MentorView(mentor: mentor)
+                    MentorView(mentor: mentor, color: speciality.accentColor)
                 } label: {
-                    MentorCardView(mentor: mentor)
+                    MentorCardView(mentor: mentor, color: speciality.accentColor)
                 }
             }
         }
@@ -143,6 +148,7 @@ struct MentorListView: View {
 
 struct MentorCardView: View {
     var mentor: Mentor
+    var color: Color
     
     var body: some View {
         CardView(content:
@@ -193,7 +199,7 @@ struct MentorCardView: View {
             .padding(.top, 5)
         }
             .padding(8)
-                 , color: Color.accentColor)
+                 , color: color)
         .padding(5)
     }
 }
@@ -208,6 +214,7 @@ struct MentorView: View {
        // formatter.timeStyle = .short
         return formatter
     }
+    var color: Color
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
@@ -223,7 +230,7 @@ struct MentorView: View {
                                 .opacity(0.75)
                                 .lineLimit(1)
                                 .frame(width: 55)
-                        }, backgroundColor: Color.accentColor)
+                        }, backgroundColor: color)
                         
                         Text("Students")
                             .lineLimit(1)
@@ -243,7 +250,7 @@ struct MentorView: View {
                                 .opacity(0.75)
                                 .lineLimit(1)
                                 .frame(width: 55)
-                        }, backgroundColor: Color.accentColor)
+                        }, backgroundColor: color)
                         
                         Text("Hourtly rate")
                             .lineLimit(1)
@@ -254,13 +261,15 @@ struct MentorView: View {
                 .offset(y: -65)
                 .padding(.bottom, -50)
                 
-                // Title
+                // Title + Links...
                 VStack {
+                    // Title...
                     Text(mentor.name ?? "")
                         .foregroundStyle(Color.theme.fontColor)
                         .font(.title3)
                         .bold()
-                    
+        
+                    // Speciality...
                     HStack {
                         ForEach(mentor.speciality, id: \.self) {speciality in
                             HStack {
@@ -276,6 +285,7 @@ struct MentorView: View {
                     }
                     .padding(.bottom)
                     
+                    // BOOK + Message...
                     HStack {
                         Button {
                             //
@@ -285,15 +295,33 @@ struct MentorView: View {
                                 Spacer()
                                 Text("BOOK")
                                     .foregroundStyle(Color.theme.fontColorWB)
+                                    .bold()
                                 Spacer()
                             }
                                 .padding(.vertical, 9)
                                        ,
-                                       backgroundColor: Color.accentColor)
+                                       backgroundColor: color)
+                        }
+                        
+                        NavigationLink {
+                            Text("Message")
+                        } label: {
+                            ButtonView(content:
+                                        HStack {
+                                Spacer()
+                                Text("Message")
+                                    .foregroundStyle(Color.theme.fontColorWB)
+                                    .bold()
+                                Spacer()
+                            }
+                                .padding(.vertical, 9)
+                                       ,
+                                       backgroundColor: color)
                         }
                     }
                     .padding(.bottom)
                     
+                    // Social Links...
                     HStack {
                         if let linkedInLink = mentor.linkedInLink {
                             ButtonView(content:
@@ -338,74 +366,76 @@ struct MentorView: View {
                     .padding(.bottom, 15)
                 }
                 
-                // ....
+                // Picker....
                 VStack {
                     Picker("", selection: $selectedView) {
                         Text("About me")
                             .tag(0)
                         
-                        Text("Reviews")
+                        Text("Content")
                             .tag(1)
+                        
+                        Text("Reviews")
+                            .tag(2)
                     }
                     .pickerStyle(SegmentedPickerStyle())
                     .padding(.bottom, 8)
                     
                     if selectedView == 0 {
-                        VStack {
-                            Text(mentor.description ?? "")
-                                .font(.subheadline)
-                                .padding(.bottom, 15)
-                            
-                            HStack {
-                                Text("I can help with ✌️")
-                                    .font(.headline)
-                                Spacer()
+                        VStack(spacing: 15) {
+                            if let description = mentor.description {
+                                Text(description)
+                                    .font(.subheadline)
                             }
-                            .opacity(0.9)
-                            .padding(.bottom, 5)
-                            .padding(.horizontal, 5)
                             
-                            VStack(alignment: .leading) {
-                                ForEach(mentor.skills) { skill in
-                                    NavigationLink {
-                                        ScrollView(.vertical, showsIndicators: false) {
-                                            Text(skill.description)
-                                                .padding()
+                            VStack {
+                                HStack {
+                                    Text("I can help with ✌️")
+                                        .font(.headline)
+                                    Spacer()
+                                }
+                                .opacity(0.9)
+                                .padding(.bottom, 5)
+                                .padding(.horizontal, 5)
+                                
+                                VStack(alignment: .leading) {
+                                    ForEach(mentor.skills) { skill in
+                                        NavigationLink {
+                                            ScrollView(.vertical, showsIndicators: false) {
+                                                Text(skill.description)
+                                                    .padding()
+                                            }
+                                            .navigationTitle(skill.title)
+                                            
+                                        } label: {
+                                            PBView(content:
+                                                    HStack {
+                                                Text(skill.title)
+                                                Spacer()
+                                                Image(systemName: "chevron.forward")
+                                            }
+                                                .bold()
+                                                .font(.subheadline)
+                                                .foregroundStyle(Color.theme.fontColor)
+                                                .opacity(0.85)
+                                                .padding(7)
+                                                .padding(.horizontal, 5)
+                                                   ,
+                                                   color: color,
+                                                   isSet: .constant(true))
                                         }
-                                        .navigationTitle(skill.title)
-                                        
-                                    } label: {
-                                        
-                                        PBView(content:
-                                                HStack {
-                                            Text(skill.title)
-                                            Spacer()
-                                            Image(systemName: "chevron.forward")
-                                        }
-                                        .bold()
-                                        .font(.subheadline)
-                                        .foregroundStyle(Color.theme.fontColorBW)
-                                        .opacity(0.75)
-                                        .padding(7)
-                                       // .padding(.horizontal)
-                                       // .padding(.vertical, 7)
-                                               ,
-                                               color: .accentColor,
-                                               isSet: .constant(true))
-//                                    
-//                                        .background(
-//                                            
-//
-//                                            PrimaryButton(text: "", backgroundColor: Color.accentColor, textColor: Color.clear)
-//                                        )
                                     }
                                 }
+                                //.padding(.horizontal, 10)
                             }
-                            //.padding(.horizontal, 10)
                         }
                         .foregroundStyle(Color.theme.fontColorBW)
-                    } else {
-                        
+                    } 
+                    if selectedView == 1 {
+                        Text("Content")
+                            .padding()
+                    }
+                    if selectedView == 2 {
                         if !mentor.reviews.isEmpty {
                             VStack {
                                     ForEach(mentor.reviews) {review in
@@ -445,7 +475,7 @@ struct MentorView: View {
                     }
                 }
             }
-                     , color: Color.accentColor)
+                     , color: color)
             .padding(.horizontal, 5)
             .padding(.top, 40)
         }

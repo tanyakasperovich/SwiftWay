@@ -17,7 +17,7 @@ struct HeaderView: View {
     var body: some View {
         HStack(alignment: .top) {
             
-            ButtonsBar_HeaderHomeView(showButtonsBar: $showButtonsBar, showAddEducationTaskView: $showAddEducationTaskView, showAddWorkTaskView: $showAddWorkTaskView)
+            ButtonsBar_HeaderHomeView(showButtonsBar: $showButtonsBar, showAddEducationTaskView: $showAddEducationTaskView, showAddWorkTaskView: $showAddWorkTaskView, color: selectedProfession.accentColor)
             
             Spacer()
            // SearchBar_HeaderHomeView(showButtonBar: $showButtonsBar)
@@ -28,7 +28,7 @@ struct HeaderView: View {
             
             Spacer()
             
-            ItemButton_HeaderHomeView()
+            ItemButton_HeaderHomeView(color: selectedProfession.accentColor)
                 .padding(.vertical, showButtonsBar ? 5 : 0)
         }
         .padding(.vertical, showButtonsBar ? 0 : 5)
@@ -42,6 +42,8 @@ struct ButtonsBar_HeaderHomeView: View {
     @State private var showAddNoteView: Bool = false
     @Binding var showAddEducationTaskView: Bool
     @Binding var showAddWorkTaskView: Bool
+    
+    var color: Color
     
     var body: some View {
                ZStack {
@@ -57,7 +59,7 @@ struct ButtonsBar_HeaderHomeView: View {
                                     .foregroundStyle(Color.theme.fontColor)
                                     .frame(width: 32, height: 32)
                             },
-                                       backgroundColor: .accentColor)
+                                       backgroundColor: color)
                         }
                         
                         if showButtonsBar {
@@ -96,7 +98,7 @@ struct ButtonsBar_HeaderHomeView: View {
                                             .foregroundStyle(Color.theme.fontColorWB)
                                             .frame(width: 32, height: 32)
                                     },
-                                               backgroundColor: .accentColor)
+                                               backgroundColor: color)
                                 }
                             }
                             .padding(.horizontal, 10)
@@ -105,7 +107,7 @@ struct ButtonsBar_HeaderHomeView: View {
                     .padding(.leading, showButtonsBar ? 10 : 0)
                     .padding(.vertical, showButtonsBar ? 5 : 0)
                     .background(
-                        RoundedRectangleShape(color: .accentColor.opacity(0.2))
+                        RoundedRectangleShape(color: color.opacity(0.2))
                     )
           }
         .sheet(isPresented: $showAddNoteView, content: {
@@ -155,7 +157,6 @@ struct ButtonsBar_HeaderHomeView: View {
 
 // MARK: - Picker View...
 struct Picker_HeaderHomeView: View {
-    
     @Binding var showButtonBar: Bool
     @Binding var selectedProfession: Professions
     
@@ -166,7 +167,7 @@ struct Picker_HeaderHomeView: View {
             }
         } label: {
             ZStack {
-                RoundedRectangleShape(color: showButtonBar ? .accentColor : .accentColor.opacity(0.2))
+                RoundedRectangleShape(color: showButtonBar ? selectedProfession.accentColor : selectedProfession.accentColor.opacity(0.2))
                     .shadow(color: showButtonBar ? Color.black : .clear, radius: 2, x: 0, y: 2)
                 
                 if showButtonBar {
@@ -176,13 +177,17 @@ struct Picker_HeaderHomeView: View {
                                 .foregroundStyle(Color.theme.fontColor)
                         }
                     } else {
-                        Picker("", selection: $selectedProfession) {
-                            ForEach(Professions.allCases, id: \.self){profession in
-                                HeaderText(text: profession.rawValue, color: .theme.fontColor)
+                        Menu(selectedProfession.rawValue) {
+                            ForEach(Sectors.allCases, id: \.self) {sector in
+                                Picker(sector.rawValue, selection: $selectedProfession) {
+                                    ForEach(sector.professions, id: \.self) {profession in
+                                        HeaderText(text: profession.rawValue, color: .theme.fontColor)
+                                    }
+                                }
+                                .pickerStyle(.menu)
                             }
                         }
                         .accentColor(.theme.fontColor)
-                        .pickerStyle(.menu)
                     }
             }
             .frame(height: 48)
@@ -192,6 +197,7 @@ struct Picker_HeaderHomeView: View {
 
 // MARK: - ItemButton View...
 struct ItemButton_HeaderHomeView: View {
+    var color: Color
     var body: some View {
         Button {
 //
@@ -202,14 +208,14 @@ struct ItemButton_HeaderHomeView: View {
                     .foregroundStyle(Color.theme.fontColor)
                     .frame(width: 32, height: 32)
             },
-                       backgroundColor: .accentColor)
+                       backgroundColor: color)
         }
     }
 }
 
 #Preview {
     VStack {
-        HeaderView(showAddEducationTaskView: .constant(false), showAddWorkTaskView: .constant(false), selectedProfession: .constant(.iosDeveloper))
+        HeaderView(showAddEducationTaskView: .constant(false), showAddWorkTaskView: .constant(false), selectedProfession: .constant(.uIUXDesigner))
             .padding(.horizontal, 3)
         Spacer()
     }

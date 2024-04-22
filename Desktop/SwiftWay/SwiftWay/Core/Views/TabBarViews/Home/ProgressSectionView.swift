@@ -13,7 +13,8 @@ struct ProgressSectionView: View {
     @Binding var showAddWorkTaskView: Bool
     //@State var showSection: Bool = true
     @AppStorage("isShowingSectionProgress") var isShowingSectionProgress: Bool = true
-    
+    @Binding var selectedProfession: Professions
+
     var body: some View {
         VStack(alignment: .leading) {
             Button {
@@ -38,14 +39,14 @@ struct ProgressSectionView: View {
                     // Задачи по обучению и по проекту......
                     VStack(alignment: .leading) {
                         // Задачи по обучению....
-                        EducationTaskCardView(showAddEducationTaskView: $showAddEducationTaskView)
+                        EducationTaskCardView(showAddEducationTaskView: $showAddEducationTaskView, color: selectedProfession.accentColor)
                         
                         // Задачи по проекту....
-                        WorkTaskCardView(showAddWorkTaskView: $showAddWorkTaskView)
+                        WorkTaskCardView(showAddWorkTaskView: $showAddWorkTaskView, color: selectedProfession.accentColor)
                     }
                     
                     // Общий прогресс по уровням...
-                    LevelsProgress_CardView()
+                    LevelsProgress_CardView(color: selectedProfession.accentColor)
                 }
                 // .padding(.bottom, 5)
             }
@@ -56,7 +57,7 @@ struct ProgressSectionView: View {
 }
 
 #Preview {
-    ProgressSectionView(showAddEducationTaskView: .constant(false), showAddWorkTaskView: .constant(false))
+    ProgressSectionView(showAddEducationTaskView: .constant(false), showAddWorkTaskView: .constant(false),selectedProfession: .constant(Professions.iosDeveloper))
         .environmentObject(RoadMapViewModel())
 }
 
@@ -66,6 +67,7 @@ struct EducationTaskCardView: View {
     @State private var showEducationTaskProgressView: Bool = false
     @Binding var showAddEducationTaskView: Bool
     var dayTaskProgress = 10
+    var color: Color
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -102,7 +104,7 @@ struct EducationTaskCardView: View {
                                 .lineLimit(1)
                              }
                         .padding(.vertical)
-                             , color: Color.accentColor)
+                             , color: color)
                     
                 }
             } else {
@@ -113,7 +115,7 @@ struct EducationTaskCardView: View {
                                 CirclePrimaryButton(imageName: "plus", backgroundColor: .theme.darkPinkColor, imageColor: .white)
                              
                              //   PBView(content: Image(systemName: "plus").padding(5), color: .theme.darkPinkColor, isSet: .constant(true))
-                             , color: Color.accentColor)
+                             , color: color)
                 }
             }
             
@@ -140,6 +142,7 @@ struct WorkTaskCardView: View {
     @State private var showWorkTaskProgressView: Bool = false
     @Binding var showAddWorkTaskView: Bool
     var monthTaskProgress = 0
+    var color: Color
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -177,7 +180,7 @@ struct WorkTaskCardView: View {
                                 .lineLimit(1)
                              }
                         .padding(.vertical)
-                             , color: Color.accentColor)
+                             , color: color)
                 }
                 
             } else {
@@ -188,7 +191,7 @@ struct WorkTaskCardView: View {
                               //  PBView(content: Image(systemName: "plus").padding(5), color: .theme.iceColor, isSet: .constant(true))
                       
                                 CirclePrimaryButton(imageName: "plus", backgroundColor: .theme.iceColor, imageColor: .white)
-                             , color: Color.accentColor)
+                             , color: color)
                 }
             }
             
@@ -215,6 +218,7 @@ struct WorkTaskView: View {
 struct LevelsProgress_CardView: View {
     @EnvironmentObject var roadMapViewModel: RoadMapViewModel
     @State private var showLevelsProgressView: Bool = false
+    var color: Color
     
     var body: some View {
         VStack {
@@ -247,7 +251,7 @@ struct LevelsProgress_CardView: View {
                         }
                     }
                 }
-                         , color: .accentColor)
+                         , color: color)
 
             }
     

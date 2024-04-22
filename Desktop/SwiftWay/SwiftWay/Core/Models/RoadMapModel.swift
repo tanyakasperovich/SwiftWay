@@ -377,6 +377,8 @@ enum Professions: String, CaseIterable {
     case productDesigner = "Product Designer"
     case uIUXDesigner = "UI/UX Designer"
     
+    case lashMaker = "Lash Maker"
+    
     var description: String {
         switch self {
         case .iosDeveloper:
@@ -385,6 +387,32 @@ enum Professions: String, CaseIterable {
             return "Product Designer"
         case .uIUXDesigner:
             return "UI/UX Designer"
+        case .lashMaker:
+            return "Lash Maker"
+        }
+    }
+    
+    var accentColor: Color {
+        switch self {
+        case .iosDeveloper, .productDesigner, .uIUXDesigner:
+            return .theme.limeColor
+        case .lashMaker:
+            return .theme.purpleColor
+        }
+    }
+    
+}
+
+enum Sectors: String, CaseIterable {
+    case iTSector = "IT"
+    case beautySector = "Beauty"
+    
+    var professions: [Professions] {
+        switch self {
+        case .iTSector:
+            return [.iosDeveloper, .productDesigner, .uIUXDesigner]
+        case .beautySector:
+            return [.lashMaker]
         }
     }
     

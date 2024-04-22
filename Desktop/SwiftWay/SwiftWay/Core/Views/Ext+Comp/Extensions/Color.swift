@@ -21,10 +21,14 @@ struct ColorTheme {
     let redColor = Color("Red")
     let darkPinkColor = Color("DarkPink")
     let limeColor = Color("Lime")
+    let aquaColor = Color("Aqua")
     let cardColor = Color("CardColor")
     let fontColorWB = Color("FontColorWB")
     let fontColorBW = Color("FontColorBW")
     let fontColor = Color("FontColor")
+    
+    // accentColor
+    let sectorBeauty = Color("SectorBeauty")
     
     }
 

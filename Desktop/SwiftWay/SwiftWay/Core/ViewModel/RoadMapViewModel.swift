@@ -9,8 +9,7 @@ import SwiftUI
 
 @MainActor final class RoadMapViewModel: ObservableObject {
     @AppStorage("selectedProfession") var selectedProfession: Professions = .iosDeveloper
-    
-    @Published var selectedColor: Color = .accentColor
+  //  @Published var selectedColor: Professions = .accentColor
     
     @Published var selectedSector: String = ""
     @Published private(set) var sectors: [Sector] = []

@@ -211,6 +211,7 @@
 		BE2444BD2AF4FF2600385766 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				BE2444B92AF4FE4300385766 /* Service */,
 				BEA324B72BBA7F8700F6011B /* MentorModel.swift */,
 				BE2444BE2AF4FF5900385766 /* RoadMapModel.swift */,
 				BEA324B52BBA7F1900F6011B /* TipModel.swift */,
@@ -421,7 +422,6 @@
 			children = (
 				BEB2D64E2BD1A01300A6977E /* SwiftWay-Info.plist */,
 				BE75D89929C9FBE300DED380 /* SwiftWayApp.swift */,
-				BE2444B92AF4FE4300385766 /* Service */,
 				BE2444BC2AF4FEBF00385766 /* Core */,
 				BEEDEE082BD1A6030033F4D7 /* GoogleService-Info.plist */,
 				BE75D89D29C9FBE400DED380 /* Assets.xcassets */,

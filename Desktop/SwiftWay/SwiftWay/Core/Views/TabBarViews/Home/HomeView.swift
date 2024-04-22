@@ -16,38 +16,39 @@ struct HomeView: View {
     
     var body: some View {
         VStack {
+        
             HeaderView(showAddEducationTaskView: $showAddEducationTaskView, showAddWorkTaskView: $showAddWorkTaskView, selectedProfession: $roadMapViewModel.selectedProfession)
                 .padding(.horizontal, 5)
             
             ScrollView(.vertical, showsIndicators: true) {
                 
                 VStack(alignment: .leading) {
-                    ProgressSectionView(showAddEducationTaskView: $showAddEducationTaskView, showAddWorkTaskView: $showAddWorkTaskView)
+                    ProgressSectionView(showAddEducationTaskView: $showAddEducationTaskView, showAddWorkTaskView: $showAddWorkTaskView, selectedProfession: $roadMapViewModel.selectedProfession)
                         .padding(.horizontal, 8)
                     
                     // Divider()
                     
-                    RoadMapCardView()
+                    RoadMapCardView(color: roadMapViewModel.selectedProfession.accentColor)
                         .padding(.horizontal, 8)
                     
                   //  Divider()
                     
-                    MentorsSectionView()
+                    MentorsSectionView(selectedProfession: roadMapViewModel.selectedProfession)
                     
-                    Divider()
+                  //  Divider()
                     
-                    TopsSectionView()
+                    TopsSectionView(selectedProfession: $roadMapViewModel.selectedProfession)
                         .padding(.horizontal, 8)
                     
                    // Divider()
                     
-                    TipCardView()
+                    TipCardView(color: roadMapViewModel.selectedProfession.accentColor)
                         .padding(.horizontal, 8)
                 }
-                .foregroundColor(.accentColor)
+               // .foregroundColor(roadMapViewModel.selectedProfession.accentColor)
             }
         }
-        .background(BackgroundView(color: .accentColor))
+        .background(BackgroundView(color: roadMapViewModel.selectedProfession.accentColor))
         .sheet(isPresented: $showAddEducationTaskView, content: {
            // AddEducationTaskView(showAddEducationTaskView: $showAddEducationTaskView)
             AddTaskView(selectedView: $selectedEducationTask, showAddTaskView: $showAddEducationTaskView)

@@ -105,6 +105,7 @@ struct TopsSectionView: View {
     @StateObject private var topsViewModel = TopsViewModel()
     @EnvironmentObject var roadMapViewModel: RoadMapViewModel
     @State var showSection: Bool = true
+    @Binding var selectedProfession: Professions
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -145,7 +146,7 @@ struct TopsSectionView: View {
 }
 
 #Preview {
-    TopsSectionView()
+    TopsSectionView(selectedProfession: .constant(Professions.iosDeveloper))
         .environmentObject(RoadMapViewModel())
 }
     
@@ -170,7 +171,7 @@ struct Top10YouTubeChannels_CardView: View {
                         .foregroundStyle(Color.theme.fontColorBW)
                         .opacity(0.9)
                 }
-                         , color: Color.accentColor)
+                         , color: selectedProfession.accentColor)
                     .padding(.top, 5)
                     .frame(height: 270)
                 
@@ -178,7 +179,7 @@ struct Top10YouTubeChannels_CardView: View {
             }
         }
         .sheet(isPresented: $showTop10YouTubeCannelsView, content: {
-            Top10YouTubeChannelsView(topsViewModel: topsViewModel)
+            Top10YouTubeChannelsView(topsViewModel: topsViewModel, color: selectedProfession.accentColor)
                 .presentationDetents([.large, .large])
                 .presentationDragIndicator(.visible)
         })
@@ -187,6 +188,7 @@ struct Top10YouTubeChannels_CardView: View {
 
 struct Top10YouTubeChannelsView: View {
     var topsViewModel: TopsViewModel
+    var color: Color
     
     var columns = [
         GridItem(.adaptive(minimum: 150))
@@ -235,7 +237,7 @@ struct Top10YouTubeChannelsView: View {
                                 .font(.caption)
                                 .foregroundStyle(.gray)
                         }
-                    }, color: .accentColor
+                    }, color: color
                     )
                     .padding(.bottom, 5)
                 }
@@ -270,13 +272,13 @@ struct Top10Books_CardView: View {
                         .foregroundStyle(Color.theme.fontColorBW)
                         .opacity(0.9)
                 }
-                         , color: Color.accentColor)
+                         , color: selectedProfession.accentColor)
                     .padding(.top, 5)
                     .frame(height: 130)
             }
         }
         .sheet(isPresented: $showTop10BooksView, content: {
-            Top10BooksView(topsViewModel: topsViewModel)
+            Top10BooksView(topsViewModel: topsViewModel, color: selectedProfession.accentColor)
                 .presentationDetents([.large, .large])
                 .presentationDragIndicator(.visible)
         })
@@ -287,6 +289,7 @@ struct Top10BooksView: View {
     var topsViewModel: TopsViewModel
     
     var columns = [ GridItem(), GridItem()]
+    var color: Color
     
     var body: some View {
         ScrollView {
@@ -313,7 +316,7 @@ struct Top10BooksView: View {
                         Text(book.name)
                             .font(.headline)
                             .foregroundStyle(.black)
-                    }, color: Color.accentColor
+                    }, color: color
                     )
                     .padding(.bottom, 5)
                 }
@@ -346,13 +349,13 @@ struct Top5Courses_CardView: View {
                         .foregroundStyle(Color.theme.fontColorBW)
                         .opacity(0.9)
                 }
-                         , color: Color.accentColor)
+                         , color: selectedProfession.accentColor)
                     .padding(.top, 5)
                     .frame(height: 130)
             }
         }
         .sheet(isPresented: $showTop5CoursesView, content: {
-            Top5CoursesView(topsViewModel: topsViewModel)
+            Top5CoursesView(topsViewModel: topsViewModel, color: selectedProfession.accentColor)
                 .presentationDetents([.large, .large])
                 .presentationDragIndicator(.visible)
         })
@@ -361,6 +364,7 @@ struct Top5Courses_CardView: View {
 
 struct Top5CoursesView: View {
     var topsViewModel: TopsViewModel
+    var color: Color
     
     var body: some View {
         ScrollView {
@@ -380,7 +384,7 @@ struct Top5CoursesView: View {
                     Text(course.autore)
                         .font(.caption)
                         .foregroundStyle(.gray)
-                }, color: Color.accentColor
+                }, color: color
                 )
                 .padding([.horizontal, .bottom])
                 

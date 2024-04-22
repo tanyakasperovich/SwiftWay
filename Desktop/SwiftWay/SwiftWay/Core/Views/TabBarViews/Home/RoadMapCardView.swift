@@ -10,14 +10,10 @@ import SwiftUI
 // MARK: - RoadMap Card View...
 struct RoadMapCardView: View {
     @EnvironmentObject var roadMapViewModel: RoadMapViewModel
+    var color: Color
     
     var body: some View {
         VStack(alignment: .leading) {
-//            Text("Road Map")
-//                .font(.body)
-//                .bold()
-//                .padding(.horizontal)
-//                .foregroundStyle(Color.theme.fontColorBW)
             Text("ROAD MAP")
                 .bold()
                 .padding(.horizontal)
@@ -63,7 +59,7 @@ struct RoadMapCardView: View {
                             try? await roadMapViewModel.getLevels()
                         }
                         ,
-                    color: .accentColor)
+                    color: color)
         }
         .padding(.bottom, 10)
     }
@@ -71,7 +67,7 @@ struct RoadMapCardView: View {
 
 
 #Preview {
-    RoadMapCardView()
+    RoadMapCardView(color: Professions.iosDeveloper.accentColor)
         .environmentObject(RoadMapViewModel())
 }
 

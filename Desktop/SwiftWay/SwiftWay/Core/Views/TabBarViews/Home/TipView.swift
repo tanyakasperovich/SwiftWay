@@ -11,7 +11,8 @@ import SwiftUI
 struct TipCardView: View {
     @StateObject var tipViewModel = TipViewModel()
     @State var isFavoriteTip: Bool = false
-    
+    var color: Color
+
     var body: some View {
         VStack(alignment: .leading) {
             Text("TIP OF THE DAY")
@@ -72,7 +73,7 @@ struct TipCardView: View {
                         Spacer()
                     }
                              ,
-                             color: Color.accentColor)
+                             color: color)
                     .padding(.top, 5)
                 }
             }
@@ -88,5 +89,5 @@ struct TipCardView: View {
 }
 
 #Preview {
-    TipCardView()
+    TipCardView(color: Professions.iosDeveloper.accentColor)
 }
