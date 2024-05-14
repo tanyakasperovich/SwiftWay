@@ -32,6 +32,15 @@ final class ProfileViewModel: ObservableObject {
             }
         }
     
+    func updateUserSelectedProfession(selectedProfession: String) {
+        guard let user else { return }
+ 
+        Task {
+            try await UserManager.shared.updateUserSelectedProfession(userId: user.userId, selectedProfession: selectedProfession)
+            self.user = try await UserManager.shared.getUser(userId: user.userId)
+        }
+    }
+    
     // User Notes ...
     func addUserNote(note: UserNote) {
         Task {

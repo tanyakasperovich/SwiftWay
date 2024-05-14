@@ -16,7 +16,7 @@ struct DateValue: Identifiable{
 
 struct CalendarView: View {
     @State var currentDate: Date = Date()
-    @EnvironmentObject var vm: RoadMapViewModel
+    @EnvironmentObject var roadMapViewModel: RoadMapViewModel
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
@@ -40,7 +40,7 @@ struct CalendarView: View {
 //                            .foregroundColor(Color.black).opacity(0.7)
 //                    })
 //        )
-        .background(BackgroundView(color: .accentColor))
+        .background(BackgroundView(color: Color(roadMapViewModel.selectedProfession?.color ?? "Lime"), image: roadMapViewModel.selectedProfession?.image ?? ""))
     }
 }
 
@@ -158,7 +158,7 @@ struct CustomDatePicker: View {
                 }
             }
             .padding(.vertical)
-            .padding(.horizontal, 7)
+            .padding(.horizontal, 5)
             .background(
                 RoundedRectangleShape(color: .accentColor)
                     .opacity(0.2)
@@ -187,7 +187,7 @@ struct CustomDatePicker: View {
         .onAppear{
                     taskViewModel.getUserTasks()
                 }
-        .padding(.horizontal, 8)
+        .padding(.horizontal, 5)
     }
     
     @ViewBuilder

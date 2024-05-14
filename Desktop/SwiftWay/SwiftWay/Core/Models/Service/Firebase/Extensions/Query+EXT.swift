@@ -12,25 +12,39 @@ import Combine
 
 extension Query {
 
+//    func getDocuments<T>(as type: T.Type) async throws -> [T] where T : Decodable {
+//        try await getDocumentsWithSnapshot(as: type).tips
+//    }
+//    
+//    func getDocumentsWithSnapshot<T>(as type: T.Type) async throws -> (tips: [T], lastDocument: DocumentSnapshot?) where T : Decodable {
+//        let snapshot = try await self.getDocuments()
+//
+//        let tips = try snapshot.documents.map({ document in
+//            try document.data(as: T.self)
+//        })
+//
+//        return (tips, snapshot.documents.last)
+//    }
+    
     func getDocuments<T>(as type: T.Type) async throws -> [T] where T : Decodable {
-        try await getDocumentsWithSnapshot(as: type).tips
+        try await getDocumentsWithSnapshot(as: type).levels
     }
     
-    func getDocumentsWithSnapshot<T>(as type: T.Type) async throws -> (tips: [T], lastDocument: DocumentSnapshot?) where T : Decodable {
+    func getDocumentsWithSnapshot<T>(as type: T.Type) async throws -> (levels: [T], lastDocument: DocumentSnapshot?) where T : Decodable {
         let snapshot = try await self.getDocuments()
-
-        let tips = try snapshot.documents.map({ document in
+        
+        let levels = try snapshot.documents.map({ document in
             try document.data(as: T.self)
         })
-
-        return (tips, snapshot.documents.last)
+        
+        return (levels, snapshot.documents.last)
     }
     
-//    func startOptionally(afterDocument lastDocument: DocumentSnapshot?) -> Query {
-//        guard let lastDocument else { return self }
-//        return self.start(afterDocument: lastDocument)
-//    }
-//
+    func startOptionally(afterDocument lastDocument: DocumentSnapshot?) -> Query {
+        guard let lastDocument else { return self }
+        return self.start(afterDocument: lastDocument)
+    }
+
 //    func aggregateCount() async throws -> Int {
 //        let snapshot = try await self.count.getAggregation(source: .server)
 //        return Int(truncating: snapshot.count)

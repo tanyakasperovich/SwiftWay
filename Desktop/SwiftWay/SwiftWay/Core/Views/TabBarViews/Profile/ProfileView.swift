@@ -16,10 +16,12 @@ struct ProfileView: View {
     
     var body: some View {
         List {
+     
             if profileViewModel.isLoading {
                 ProgressView()
             } else {
                 if let user = profileViewModel.user {
+                    
                     Text("UserId: \(user.userId)")
                     
                     if let isAnonymous = user.isAnonymous {

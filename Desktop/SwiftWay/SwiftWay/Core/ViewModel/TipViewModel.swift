@@ -12,20 +12,17 @@ import Foundation
 final class TipViewModel: ObservableObject {
     // Tips...
     @Published var tips: [Tip] = []
-    @Published var isLoadingTips: Bool = false
+    @Published var tip: Tip? = nil
     
     // Get Tips...
     func getTipOfTheDay() async throws {
         self.tips = try await TipManager.shared.getTips()
-
-//        let tips = manager.getTipsOfTheDay()
-//
-//        isLoadingTips = true
-//
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-//            self.tips = tips
-//            self.isLoadingTips = false
-//        }
+   }
+    func getTip() async throws {
+        try? await getTipOfTheDay()
+        let randomTip = tips.shuffled().first ?? Tip(title: "")
+        let randomTipId = randomTip.id
+        self.tip = try await TipManager.shared.getTip(tipId: randomTipId)
    }
     
     func addUserFavoriteTip(tipId: String) {

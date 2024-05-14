@@ -13,7 +13,7 @@ struct Mentor: Identifiable, Codable {
     let userId: String?
     let name: String?
     let image: String?
-    let speciality: [String]
+    let professionId: String?
     let price: Double?
     let rating: Double?
     let reviews: [ReviewModel]
@@ -22,14 +22,14 @@ struct Mentor: Identifiable, Codable {
     let youTubeLink: String?
     let link: String?
     let description: String?
-    let students: [DBUser]
+    let students: [String]
     let skills: [SkillModel]
     
-    init(userId: String, name: String, image: String, speciality: [String], price: Double, rating: Double, reviews: [ReviewModel], linkedInLink: String?, instagramLink: String?, youTubeLink: String?, link: String, description: String, students: [DBUser], skills: [SkillModel]) {
+    init(userId: String, name: String, image: String, professionId: String?, price: Double, rating: Double, reviews: [ReviewModel], linkedInLink: String?, instagramLink: String?, youTubeLink: String?, link: String, description: String, students: [String], skills: [SkillModel]) {
         self.userId = userId
         self.name = name
         self.image = image
-        self.speciality = speciality
+        self.professionId = professionId
         self.price = price
         self.rating = rating
         self.reviews = reviews
@@ -47,7 +47,7 @@ struct Mentor: Identifiable, Codable {
         case userId = "userId"
         case name = "name"
         case image = "image"
-        case speciality = "speciality"
+        case professionId = "professionId"
         case price = "price"
         case rating = "rating"
         case reviews = "reviews"
@@ -67,7 +67,7 @@ struct Mentor: Identifiable, Codable {
         self.userId = try container.decodeIfPresent(String.self, forKey: .userId)
         self.name = try container.decodeIfPresent(String.self, forKey: .name)
         self.image = try container.decodeIfPresent(String.self, forKey: .image)
-        self.speciality = try container.decodeIfPresent([String].self, forKey: .speciality) ?? []
+        self.professionId = try container.decodeIfPresent(String.self, forKey: .professionId)
         self.price = try container.decodeIfPresent(Double.self, forKey: .price)
         self.rating = try container.decodeIfPresent(Double.self, forKey: .rating)
         self.reviews = try container.decodeIfPresent([ReviewModel].self, forKey: .reviews) ?? []
@@ -76,7 +76,7 @@ struct Mentor: Identifiable, Codable {
         self.youTubeLink = try container.decodeIfPresent(String.self, forKey: .youTubeLink)
         self.link = try container.decodeIfPresent(String.self, forKey: .link)
         self.description = try container.decodeIfPresent(String.self, forKey: .description)
-        self.students = try container.decodeIfPresent([DBUser].self, forKey: .students) ?? []
+        self.students = try container.decodeIfPresent([String].self, forKey: .students) ?? []
         self.skills = try container.decodeIfPresent([SkillModel].self, forKey: .skills) ?? []
     }
    
@@ -86,7 +86,7 @@ struct Mentor: Identifiable, Codable {
         try container.encodeIfPresent(self.userId, forKey: .userId)
         try container.encodeIfPresent(self.name, forKey: .name)
         try container.encodeIfPresent(self.image, forKey: .image)
-        try container.encodeIfPresent(self.speciality, forKey: .speciality)
+        try container.encodeIfPresent(self.professionId, forKey: .professionId)
         try container.encodeIfPresent(self.price, forKey: .price)
         try container.encodeIfPresent(self.rating, forKey: .rating)
         try container.encodeIfPresent(self.reviews, forKey: .reviews)
@@ -100,29 +100,10 @@ struct Mentor: Identifiable, Codable {
     }
 }
 
-//// MARK: - Mentor Model...
-//struct MentorModel: Identifiable, Hashable {
-//    var id = UUID().uuidString
-//    let userId: String
-//    let name: String
-//    let image: String
-//    let speciality: [Professions]
-//    let price: Double
-//    let rating: Double
-//    let reviews: [ReviewModel?]
-//    let linkedInLink: String?
-//    let instagramLink: String?
-//    let youTubeLink: String?
-//    let link: String?
-//    let description: String
-//    let students: [String?]
-//    let skills: [SkillModel]
-//}
-
 // MARK: - Review about Mentor - Model...
 struct ReviewModel: Identifiable, Codable {
     var id = UUID().uuidString
-    let nameAuthor: String
+    let userId: String
     let review: String
     let date: Date
 }
@@ -132,4 +113,5 @@ struct ReviewModel: Identifiable, Codable {
     var id = UUID().uuidString
     let title: String
     let description: String
+    let price: Int
 }

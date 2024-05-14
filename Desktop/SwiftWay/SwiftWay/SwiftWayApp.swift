@@ -15,18 +15,33 @@ struct SwiftWayApp: App {
     @StateObject private var roadMapViewModel = RoadMapViewModel()
     // User...
     @StateObject private var userProfileViewModel = ProfileViewModel()
-    
+    // User Posts...
+    @StateObject private var postViewModel = PostViewModel()
+
     // register app delegate for Firebase setup
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
+    @State private var showLaunchView: Bool = true
+
     var body: some Scene {
         WindowGroup {
-            if isShowingOnboarding {
-             OnboardingView()
-            } else {
-               ContentView()
-                    .environmentObject(roadMapViewModel)
-                    .environmentObject(userProfileViewModel)
+            ZStack {
+                if isShowingOnboarding {
+                    OnboardingView()
+                } else {
+                    ContentView()
+                        .environmentObject(roadMapViewModel)
+                        .environmentObject(userProfileViewModel)
+                        .environmentObject(postViewModel)
+                }
+               
+                ZStack {
+                    if showLaunchView {
+                        LaunchView(showLaunchView: $showLaunchView)
+                            .transition(.move(edge: .leading))
+                    }
+                }
+                .zIndex(2.0)
             }
         }
     }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct BackgroundView: View {
     var color: Color
+    var image: String
     var body: some View {
         ZStack {
             color
@@ -18,7 +19,7 @@ struct BackgroundView: View {
             let rows = [GridItem(), GridItem(), GridItem(),  GridItem(),  GridItem(), GridItem(),  GridItem(), GridItem(),  GridItem()]
             LazyHGrid(rows: rows) {
                             ForEach(0...100, id: \.self) { value in
-                                Image(systemName: "swift")
+                                Image(systemName: image)
                                     .opacity(0.4)
 
                                     Text(" ")
@@ -31,5 +32,5 @@ struct BackgroundView: View {
 }
 
 #Preview {
-    BackgroundView(color: .accentColor)
+    BackgroundView(color: .accentColor, image: "swift")
 }

@@ -14,8 +14,8 @@ final class RoadMapManager {
     static let shared = RoadMapManager()
     private init() { }
 
-    // MARK: - RoadMap...
-    private let roadMapCollection: CollectionReference = Firestore.firestore().collection("roadMap")
+    // MARK: - Sectors...
+    private let roadMapCollection: CollectionReference = Firestore.firestore().collection("sectors")
 
     private func sectorDocument(sectorId: String) -> DocumentReference {
         roadMapCollection.document(sectorId)
@@ -34,52 +34,86 @@ final class RoadMapManager {
     func getSectors() async throws -> [Sector] {
         try await roadMapCollection.getDocuments(as: Sector.self)
     }
-    
-//        func getRoadMapLevels() async throws -> [Level] {
-//            try await roadMapCollection.getDocuments(as: Level.self)
-//        }
-    
-    // MARK: - Professions....
-    private func professionCollection(sectorId: String) -> CollectionReference {
-        sectorDocument(sectorId: sectorId).collection("professions")
-    }
-    
-    private func professionDocument(sectorId: String, professionId: String) -> DocumentReference {
-        professionCollection(sectorId: sectorId).document(professionId)
-    }
-    
-    // загрузка Professions.........................................................
-    func uploadProfessions(sector: Sector, profession: Profession) async throws {
-        try professionDocument(sectorId: sector.id, professionId: profession.id).setData(from: profession, merge: false)
-    }
-    //.........................................................................
-
-    func getProfessions(sectorId: String) async throws -> [Profession] {
-        try await professionCollection(sectorId: sectorId).getDocuments(as: Profession.self)
-    }
-    
+  
     // MARK: - Levels....
-    private func levelCollection(sectorId: String, professionId: String) -> CollectionReference {
-        professionDocument(sectorId: sectorId, professionId: professionId).collection("levels")
+        private let levelsCollection: CollectionReference = Firestore.firestore().collection("levels")
+    
+        private func levelDocument(levelId: String) -> DocumentReference {
+            levelsCollection.document(levelId)
+        }
+    
+        // загрузка Levels.........................................................
+        func uploadLevels(level: Level) async throws {
+            try levelDocument(levelId: level.id).setData(from: level, merge: false)
+        }
+        //.........................................................................
+    
+        func getLevel(levelId: String) async throws -> Level {
+            try  await levelDocument(levelId: levelId).getDocument(as: Level.self)
+        }
+    
+        func getAllLevels() async throws -> [Level] {
+            try await levelsCollection.getDocuments(as: Level.self)
+        }
+    
+    private func getAllLevelsQuery() -> Query {
+        levelsCollection
     }
     
-    private func levelDocument(sectorId: String, professionId: String, levelId: String) -> DocumentReference {
-        levelCollection(sectorId: sectorId, professionId: professionId).document(levelId)
+//    private func getAllLevelsSortedByPriceQuery(descending: Bool) -> Query {
+//        levelsCollection
+//            .order(by: Level.CodingKeys..rawValue, descending: descending)
+//    }
+    
+    private func getAllLevelsForProfessionsQuery(professionId: String) -> Query {
+        levelsCollection
+            .whereField(Level.CodingKeys.professionId.rawValue, isEqualTo: professionId)
     }
     
-    // загрузка Levels.........................................................
-    func uploadLevels(sector: Sector, profession: Profession, level: Level) async throws {
-        try levelDocument(sectorId: sector.id, professionId: profession.id, levelId: level.id).setData(from: level, merge: false)
-    }
-    //.........................................................................
-
-    func getLevels(sectorId: String, professionId: String) async throws -> [Level] {
-        try await levelCollection(sectorId: sectorId, professionId: professionId).getDocuments(as: Level.self)
-    }
+//    private func getAllLevelsByPriceAndCategoryQuery(descending: Bool, category: String) -> Query {
+//        levelsCollection
+//            .whereField(Product.CodingKeys.category.rawValue, isEqualTo: category)
+//            .order(by: Product.CodingKeys.price.rawValue, descending: descending)
+//    }
     
+    func getAllLevels(forProfession professionId: String?, count: Int, lastDocument: DocumentSnapshot?) async throws -> (levels: [Level], lastDocument: DocumentSnapshot?) {
+        var query: Query = getAllLevelsQuery()
+//        func getAllLevels(priceDescending descending: Bool?, forCategory category: String?, count: Int, lastDocument: DocumentSnapshot?) async throws -> (products: [Product], lastDocument: DocumentSnapshot?) {
+//            var query: Query = getAllProductsQuery()
+//        if let descending, let category {
+//            query = getAllProductsByPriceAndCategoryQuery(descending: descending, category: category)
+//        } else if let descending {
+//            query = getAllProductsSortedByPriceQuery(descending: descending)
+      //  } else
+            if let professionId {
+            query = getAllLevelsForProfessionsQuery(professionId: professionId)
+        }
+        
+        return try await query
+            .startOptionally(afterDocument: lastDocument)
+            .getDocumentsWithSnapshot(as: Level.self)
+    }
 
 }
 
+//// MARK: - Levels....
+//private func levelCollection(sectorId: String, professionId: String) -> CollectionReference {
+//    professionDocument(sectorId: sectorId, professionId: professionId).collection("levels")
+//}
+//
+//private func levelDocument(sectorId: String, professionId: String, levelId: String) -> DocumentReference {
+//    levelCollection(sectorId: sectorId, professionId: professionId).document(levelId)
+//}
+//
+//// загрузка Levels.........................................................
+//func uploadLevels(sector: Sector, profession: Profession, level: Level) async throws {
+//    try levelDocument(sectorId: sector.id, professionId: profession.id, levelId: level.id).setData(from: level, merge: false)
+//}
+////.........................................................................
+//
+//func getLevels(sectorId: String, professionId: String) async throws -> [Level] {
+//    try await levelCollection(sectorId: sectorId, professionId: professionId).getDocuments(as: Level.self)
+//}
 
 //final class RoadMapManager {
 //
@@ -110,31 +144,4 @@ final class RoadMapManager {
 //    
 //    
 //    
-//    // MARK: - Tips...
-//    private let tipsCollection = Firestore.firestore().collection("tips")
-//    
-//    private func tipDocument(tipId: String) -> DocumentReference {
-//        tipsCollection.document(tipId)
-//    }
-//    
-////    func uploadTips(tip: Tip) async throws {
-////        try tipDocument(tipId: tip.id).setData(from: tip, merge: false)
-////    }
-//    func getTip(tipId: String) async throws -> Tip {
-//        try  await tipDocument(tipId: tipId).getDocument(as: Tip.self)
-//    }
-//    func getTips() async throws -> [Tip] {
-//        try await tipsCollection.getDocuments(as: Tip.self)
-////        let snapshot = try await tipsCollection.getDocuments()
-////        
-////        var tips: [Tip] = []
-////        
-////        for document in snapshot.documents {
-////            let tip = try document.data(as: Tip.self)
-////            tips.append(tip)
-////        }
-////        
-////        return tips
-//    }
-//
-//}
+

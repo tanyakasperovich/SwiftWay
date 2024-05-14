@@ -13,8 +13,8 @@ struct ProgressSectionView: View {
     @Binding var showAddWorkTaskView: Bool
     //@State var showSection: Bool = true
     @AppStorage("isShowingSectionProgress") var isShowingSectionProgress: Bool = true
-    @Binding var selectedProfession: Professions
-
+    var selectedProfession: Profession
+    
     var body: some View {
         VStack(alignment: .leading) {
             Button {
@@ -39,14 +39,14 @@ struct ProgressSectionView: View {
                     // Задачи по обучению и по проекту......
                     VStack(alignment: .leading) {
                         // Задачи по обучению....
-                        EducationTaskCardView(showAddEducationTaskView: $showAddEducationTaskView, color: selectedProfession.accentColor)
+                        EducationTaskCardView(showAddEducationTaskView: $showAddEducationTaskView, color: Color(selectedProfession.color ?? "Lime"))
                         
                         // Задачи по проекту....
-                        WorkTaskCardView(showAddWorkTaskView: $showAddWorkTaskView, color: selectedProfession.accentColor)
+                        WorkTaskCardView(showAddWorkTaskView: $showAddWorkTaskView, color: Color(selectedProfession.color ?? "Lime"))
                     }
                     
                     // Общий прогресс по уровням...
-                    LevelsProgress_CardView(color: selectedProfession.accentColor)
+                    LevelsProgress_CardView(color: Color(selectedProfession.color ?? "Lime"))
                 }
                 // .padding(.bottom, 5)
             }
@@ -57,7 +57,7 @@ struct ProgressSectionView: View {
 }
 
 #Preview {
-    ProgressSectionView(showAddEducationTaskView: .constant(false), showAddWorkTaskView: .constant(false),selectedProfession: .constant(Professions.iosDeveloper))
+    ProgressSectionView(showAddEducationTaskView: .constant(false), showAddWorkTaskView: .constant(false), selectedProfession: Profession(title: "Title", sectorTitle: "", color: "Lime", image: "swift"))
         .environmentObject(RoadMapViewModel())
 }
 

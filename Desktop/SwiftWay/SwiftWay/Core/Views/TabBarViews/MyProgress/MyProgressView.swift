@@ -9,18 +9,18 @@ import SwiftUI
 
 struct MyProgressView: View {
     @State private var selectedView = true
-    
+    @EnvironmentObject var roadMapViewModel: RoadMapViewModel
+
     var body: some View {
         VStack {
             CustomPickerView(selectedView: $selectedView)
-            
             if selectedView {
-                LevelListView()
+                ProgressLevelList()
             } else {
-                RoadMapView()
+                ProgressRoadMap()
           }
         }
-        .background(BackgroundView(color: .accentColor))
+        .background(BackgroundView(color: Color(roadMapViewModel.selectedProfession?.color ?? "Lime"), image: roadMapViewModel.selectedProfession?.image ?? ""))
         .navigationTitle(selectedView ? "My Progress" : "Road Map")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarItems(

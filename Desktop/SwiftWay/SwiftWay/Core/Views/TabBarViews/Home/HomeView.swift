@@ -11,44 +11,52 @@ struct HomeView: View {
     @State private var showAddEducationTaskView: Bool = false
     @State private var showAddWorkTaskView: Bool = false
     @EnvironmentObject var roadMapViewModel: RoadMapViewModel
+    @EnvironmentObject var profileViewModel: ProfileViewModel
     @State var selectedEducationTask: Bool = true
     @State var selectedWorkTask: Bool = false
     
     var body: some View {
         VStack {
-        
-            HeaderView(showAddEducationTaskView: $showAddEducationTaskView, showAddWorkTaskView: $showAddWorkTaskView, selectedProfession: $roadMapViewModel.selectedProfession)
-                .padding(.horizontal, 5)
-            
-            ScrollView(.vertical, showsIndicators: true) {
-                
-                VStack(alignment: .leading) {
-                    ProgressSectionView(showAddEducationTaskView: $showAddEducationTaskView, showAddWorkTaskView: $showAddWorkTaskView, selectedProfession: $roadMapViewModel.selectedProfession)
-                        .padding(.horizontal, 8)
+          
+                HeaderView(showAddEducationTaskView: $showAddEducationTaskView, showAddWorkTaskView: $showAddWorkTaskView, sectorColor: roadMapViewModel.selectedProfession?.color ?? "Lime")
+                        .padding(.horizontal, 5)
+            if let user = profileViewModel.user {
+                ScrollView(.vertical, showsIndicators: true) {
                     
-                    // Divider()
-                    
-                    RoadMapCardView(color: roadMapViewModel.selectedProfession.accentColor)
-                        .padding(.horizontal, 8)
-                    
-                  //  Divider()
-                    
-                    MentorsSectionView(selectedProfession: roadMapViewModel.selectedProfession)
-                    
-                  //  Divider()
-                    
-                    TopsSectionView(selectedProfession: $roadMapViewModel.selectedProfession)
-                        .padding(.horizontal, 8)
-                    
-                   // Divider()
-                    
-                    TipCardView(color: roadMapViewModel.selectedProfession.accentColor)
-                        .padding(.horizontal, 8)
+                    if let selectedProfession = user.selectedProfession {
+//                        Text(selectedProfession)
+//                        Text(roadMapViewModel.selectedProfession?.title ?? "")
+                        VStack(alignment: .leading) {
+                            ProgressSectionView(showAddEducationTaskView: $showAddEducationTaskView, showAddWorkTaskView: $showAddWorkTaskView, selectedProfession: roadMapViewModel.selectedProfession ?? Profession(title: "", sectorTitle: "", color: "", image: ""))
+                                .padding(.horizontal, 5)
+                            
+                            RoadMapSectionView()
+                                .padding(.horizontal, 5)
+                            
+                            MentorsSectionView(selectedProfessionId: selectedProfession)
+                            
+                            //  TopsSectionView(selectedProfession: roadMapViewModel.selectedProfession)
+                            //    .padding(.horizontal, 8)
+                            
+                            TipCardView(color: Color(roadMapViewModel.selectedProfession?.color ?? "Lime"))
+                                .padding(.horizontal, 5)
+                        }
+                    } else {
+                        VStack {
+                            Text("Select Profession")
+                                .padding()
+                                .foregroundStyle(Color.secondary)
+                            
+                            Spacer()
+                        }
+                    }
+                   
                 }
-               // .foregroundColor(roadMapViewModel.selectedProfession.accentColor)
-            }
+                } else {
+                    ProgressView()
+                }
         }
-        .background(BackgroundView(color: roadMapViewModel.selectedProfession.accentColor))
+        .background(BackgroundView(color: Color(roadMapViewModel.selectedProfession?.color ?? "Lime"), image: roadMapViewModel.selectedProfession?.image ?? ""))
         .sheet(isPresented: $showAddEducationTaskView, content: {
            // AddEducationTaskView(showAddEducationTaskView: $showAddEducationTaskView)
             AddTaskView(selectedView: $selectedEducationTask, showAddTaskView: $showAddEducationTaskView)

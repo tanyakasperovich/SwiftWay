@@ -16,28 +16,25 @@ final class NotesViewModel: ObservableObject {
     func getUserNotes() {
         Task {
         isLoading = true
-            
             let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
             self.userNotes = try await UserManager.shared.getAllUserNotes(userId: authDataResult.uid)
-            
          isLoading = false
         }
     }
-    
-//    func addUserNote(title: String, description: String, url: String) {
-//        Task {
-//            let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
-//            try? await UserManager.shared.addUserNote(userId: authDataResult.uid, note: Note(title: title, description: description, url: url))
-//        }
-//    }
     
     func removeUserNote(noteId: String) {
         Task {
             let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
             try? await UserManager.shared.removeUserNote(userId: authDataResult.uid, noteId: noteId)
-            getUserNotes()
+             getUserNotes()
         }
     }
     
+    func updateUserNote(noteId: String) {
+        Task {
+            let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
+            try? await UserManager.shared.updateUserNote(userId: authDataResult.uid, noteId: noteId, noteTitle: "noteTitle", noteDescription: "noteDescription", noteURL: "noteURL")
+            getUserNotes()
+        }
+    }
 }
-

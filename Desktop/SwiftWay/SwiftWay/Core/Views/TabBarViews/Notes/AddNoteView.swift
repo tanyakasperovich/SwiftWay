@@ -10,12 +10,11 @@ import SwiftUI
 struct AddNoteView: View {
     @State var titleFieldText: String = ""
     @State var descriptionFieldText: String = ""
-    @State var selecledColor: SelecledColor = .accent
     var color: Color
     @Binding var showAddNoteView: Bool
     
-  //  @EnvironmentObject var viewModel: NotesViewModel
     @EnvironmentObject var viewModel: ProfileViewModel
+
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack {
@@ -93,13 +92,13 @@ struct AddNoteView: View {
                     
                     Button(action: {
                         guard !titleFieldText.isEmpty else { return }
-                        viewModel.addUserNote(note: UserNote(title: titleFieldText, description: descriptionFieldText, url: "", dateCreated: Date.now))
+                        viewModel.addUserNote(note: UserNote(title: titleFieldText, description: descriptionFieldText, url: "", dateCreated: Date.now, professionId: viewModel.user?.selectedProfession ?? ""))
                         titleFieldText = ""
                         descriptionFieldText = ""
                         showAddNoteView = false
                     }, label: {
                         ZStack {
-                            RoundedRectangleShape(color: Color(selecledColor.rawValue))
+                            RoundedRectangleShape(color: color)
                                 .opacity(disableForm ? 0.7 : 1)
                                 .frame(height: 55)
                                 .shadow(color: Color.black, radius: 2, x: -1, y: 1)

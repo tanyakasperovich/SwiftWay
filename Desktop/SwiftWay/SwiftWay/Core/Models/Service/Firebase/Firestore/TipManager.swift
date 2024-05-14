@@ -11,6 +11,7 @@ import SwiftUI
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
+// MARK: - Tips...
 final class TipManager {
     
     static let shared = TipManager()
@@ -43,5 +44,4 @@ final class TipManager {
 //
 //        return tips
     }
-    
 }

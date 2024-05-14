@@ -12,23 +12,24 @@ struct HeaderView: View {
     @State private var showButtonsBar: Bool = false
     @Binding var showAddEducationTaskView: Bool
     @Binding var showAddWorkTaskView: Bool
-    @Binding var selectedProfession: Professions
+    var sectorColor: String
     
     var body: some View {
         HStack(alignment: .top) {
             
-            ButtonsBar_HeaderHomeView(showButtonsBar: $showButtonsBar, showAddEducationTaskView: $showAddEducationTaskView, showAddWorkTaskView: $showAddWorkTaskView, color: selectedProfession.accentColor)
+            ButtonsBar_HeaderHomeView(showButtonsBar: $showButtonsBar, showAddEducationTaskView: $showAddEducationTaskView, showAddWorkTaskView: $showAddWorkTaskView, color: Color(sectorColor))
             
             Spacer()
            // SearchBar_HeaderHomeView(showButtonBar: $showButtonsBar)
            //     .frame(height: 50)
-            
-            Picker_HeaderHomeView(showButtonBar: $showButtonsBar, selectedProfession: $selectedProfession)
+
+            Picker_HeaderHomeView(showButtonBar: $showButtonsBar)
+                .frame(height: 48)
                 .padding(.vertical, showButtonsBar ? 5 : 0)
             
             Spacer()
             
-            ItemButton_HeaderHomeView(color: selectedProfession.accentColor)
+            ItemButton_HeaderHomeView(color: Color(sectorColor))
                 .padding(.vertical, showButtonsBar ? 5 : 0)
         }
         .padding(.vertical, showButtonsBar ? 0 : 5)
@@ -74,7 +75,6 @@ struct ButtonsBar_HeaderHomeView: View {
                                             .frame(width: 32, height: 32)
                                     },
                                                backgroundColor: .theme.darkPinkColor)
-                                    
                                 }
                                 
                                 Button {
@@ -107,11 +107,11 @@ struct ButtonsBar_HeaderHomeView: View {
                     .padding(.leading, showButtonsBar ? 10 : 0)
                     .padding(.vertical, showButtonsBar ? 5 : 0)
                     .background(
-                        RoundedRectangleShape(color: color.opacity(0.2))
+                        RoundedRectangleShape(color: color.opacity(showButtonsBar ? 0.2 : 0.0))
                     )
           }
         .sheet(isPresented: $showAddNoteView, content: {
-            AddNoteView(color: Color.accentColor, showAddNoteView: $showAddNoteView)
+            AddNoteView(color: color, showAddNoteView: $showAddNoteView)
         })
     }
 }
@@ -158,40 +158,69 @@ struct ButtonsBar_HeaderHomeView: View {
 // MARK: - Picker View...
 struct Picker_HeaderHomeView: View {
     @Binding var showButtonBar: Bool
-    @Binding var selectedProfession: Professions
+    @EnvironmentObject var roadMapViewModel: RoadMapViewModel
+    @EnvironmentObject var profileViewModel: ProfileViewModel
     
     var body: some View {
-        Button {
-            withAnimation {
-                showButtonBar = false
-            }
-        } label: {
-            ZStack {
-                RoundedRectangleShape(color: showButtonBar ? selectedProfession.accentColor : selectedProfession.accentColor.opacity(0.2))
-                    .shadow(color: showButtonBar ? Color.black : .clear, radius: 2, x: 0, y: 2)
-                
                 if showButtonBar {
-                        HStack {
-                            Image(systemName: "list.bullet")
-                                .padding(.horizontal)
-                                .foregroundStyle(Color.theme.fontColor)
-                        }
-                    } else {
-                        Menu(selectedProfession.rawValue) {
-                            ForEach(Sectors.allCases, id: \.self) {sector in
-                                Picker(sector.rawValue, selection: $selectedProfession) {
-                                    ForEach(sector.professions, id: \.self) {profession in
-                                        HeaderText(text: profession.rawValue, color: .theme.fontColor)
-                                    }
-                                }
-                                .pickerStyle(.menu)
+                    Button {
+                        showButtonBar = false
+                    } label: {
+                        ZStack {
+                            RoundedRectangleShape(color: showButtonBar ? Color(roadMapViewModel.selectedProfession?.color ?? "Lime") : Color(roadMapViewModel.selectedProfession?.color ?? "Lime").opacity(0.2))
+                                .shadow(color: showButtonBar ? Color.black : .clear, radius: 2, x: 0, y: 2)
+                            HStack {
+                                Image(systemName: "list.bullet")
+                                    .padding(.horizontal)
+                                    .foregroundStyle(Color.theme.fontColor)
                             }
                         }
-                        .accentColor(.theme.fontColor)
                     }
-            }
-            .frame(height: 48)
-        }
+                } else {
+                    ZStack {
+                        RoundedRectangleShape(color: Color(roadMapViewModel.selectedProfession?.color ?? "Lime").opacity(0.2))
+                        
+                        VStack {
+                            if roadMapViewModel.isLoadingSectors {
+                                ProgressView()
+                            } else {
+                                Menu(roadMapViewModel.selectedProfession?.title ?? "Select Profession") {
+                                    ForEach(roadMapViewModel.sectors, id: \.self) {sector in
+                                        Menu(sector.title ?? "") {
+                                            ForEach(sector.professions ?? [], id: \.self) {profession in
+                                                Button {
+                                                    Task {
+                                                        try? await roadMapViewModel.professionSelected(option: profession.id)
+                                                        profileViewModel.updateUserSelectedProfession(selectedProfession: profession.id)
+                                                    }
+                                                    
+                                                    withAnimation {
+                                                        roadMapViewModel.selectedProfession = profession
+                                                        }
+                                                } label: {
+                                                    if let professionTitle = profession.title {
+                                                        HeaderText(text: professionTitle, color: .theme.fontColor)
+                                                        Spacer()
+                                                        Image(systemName: profileViewModel.user?.selectedProfession == profession.id ? "checkmark" : "")
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                .accentColor(.theme.fontColor)
+                            }
+                        }
+                        .onFirstAppear {
+                            Task {
+                                try? await roadMapViewModel.getSectors()
+                                try? await roadMapViewModel.setProfession(professionId: profileViewModel.user?.selectedProfession ?? "")
+                                try? await roadMapViewModel.professionSelected(option: profileViewModel.user?.selectedProfession ?? "")
+                            }
+                        }
+                    }
+                }
+        
     }
 }
 
@@ -215,7 +244,8 @@ struct ItemButton_HeaderHomeView: View {
 
 #Preview {
     VStack {
-        HeaderView(showAddEducationTaskView: .constant(false), showAddWorkTaskView: .constant(false), selectedProfession: .constant(.uIUXDesigner))
+        let roadMapViewModel = RoadMapViewModel()
+        HeaderView(showAddEducationTaskView: .constant(false), showAddWorkTaskView: .constant(false), sectorColor: "SectorIT")
             .padding(.horizontal, 3)
         Spacer()
     }

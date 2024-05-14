@@ -22,67 +22,113 @@ struct TipCardView: View {
                 .foregroundStyle(Color.theme.fontColorBW)
                 .opacity(0.7)
             
-            TabView() {
-                ForEach(tipViewModel.tips.shuffled()) { tip in
-                    CardView(content:
-                                VStack {
-                        if tipViewModel.isLoadingTips {
-                            ProgressView()
-                        } else {
-                            if !tipViewModel.tips.isEmpty {
-                                
-                                //                        ForEach(tipsViewModel.tips) { tip in
-                                VStack {
-                                    
-//                                    HStack {
-//                                        Spacer()
-//                                        
-//                                        Button {
-//                                            tipsViewModel.addUserFavoriteTip(tipId: tip.id)
-//                                            isFavoriteTip = true
-//                                        } label: {
-//                                            Image(systemName: isFavoriteTip ? "heart.fill" : "heart")
-//                                                .foregroundColor(.pink)
-//                                        }
-//                                        
-//                                    }
-                                    
-//                                    Circle()
-//                                        .opacity(0.4)
-//                                        .frame(height: 30)
-                                    
-                                    Text("Совет дня")
-                                        .font(.body)
-                                        .bold()
-                                        .padding(.vertical, 8)
-                                        .foregroundStyle(Color.theme.fontColorBW)
-                                        .opacity(0.9)
-                                    
-                                    Text(tip.title ?? "")
-                                        .font(.body)
-                                        .foregroundStyle(Color.theme.fontColorBW)
-                                        .opacity(0.7)
-                                }
-                                //}
-                                
-                            } else {
-                                Text("No Item")
-                                    .foregroundStyle(Color.secondary)
-                            }
-                        }
-                        Spacer()
+            CardView(content:
+                        VStack {
+                if let tip = tipViewModel.tip {
+                    VStack {
+                        
+                        //                                    HStack {
+                        //                                        Spacer()
+                        //
+                        //                                        Button {
+                        //                                            tipsViewModel.addUserFavoriteTip(tipId: tip.id)
+                        //                                            isFavoriteTip = true
+                        //                                        } label: {
+                        //                                            Image(systemName: isFavoriteTip ? "heart.fill" : "heart")
+                        //                                                .foregroundColor(.pink)
+                        //                                        }
+                        //
+                        //                                    }
+                        
+                        //                                    Circle()
+                        //                                        .opacity(0.4)
+                        //                                        .frame(height: 30)
+                        
+                        Text("Совет дня")
+                            .font(.body)
+                            .bold()
+                            .padding(.vertical, 8)
+                            .foregroundStyle(Color.theme.fontColorBW)
+                            .opacity(0.9)
+                        
+                        Text(tip.title ?? "")
+                            .font(.body)
+                            .foregroundStyle(Color.theme.fontColorBW)
+                            .opacity(0.7)
                     }
-                             ,
-                             color: color)
-                    .padding(.top, 5)
+                } else {
+                    ProgressView()
+//                    Text("No Item")
+//                        .foregroundStyle(Color.secondary)
                 }
             }
-            .tabViewStyle(.page)
+                                         ,
+                                         color: color)
+
+            
+//            TabView() {
+//                ForEach(tipViewModel.tips.shuffled()) { tip in
+//                    CardView(content:
+//                                VStack {
+//                        if tipViewModel.isLoadingTips {
+//                            ProgressView()
+//                        } else {
+//                            if !tipViewModel.tips.isEmpty {
+//                                
+//                                //                        ForEach(tipsViewModel.tips) { tip in
+//                                VStack {
+//                                    
+////                                    HStack {
+////                                        Spacer()
+////                                        
+////                                        Button {
+////                                            tipsViewModel.addUserFavoriteTip(tipId: tip.id)
+////                                            isFavoriteTip = true
+////                                        } label: {
+////                                            Image(systemName: isFavoriteTip ? "heart.fill" : "heart")
+////                                                .foregroundColor(.pink)
+////                                        }
+////                                        
+////                                    }
+//                                    
+////                                    Circle()
+////                                        .opacity(0.4)
+////                                        .frame(height: 30)
+//                                    
+//                                    Text("Совет дня")
+//                                        .font(.body)
+//                                        .bold()
+//                                        .padding(.vertical, 8)
+//                                        .foregroundStyle(Color.theme.fontColorBW)
+//                                        .opacity(0.9)
+//                                    
+//                                    Text(tip.title ?? "")
+//                                        .font(.body)
+//                                        .foregroundStyle(Color.theme.fontColorBW)
+//                                        .opacity(0.7)
+//                                }
+//                                //}
+//                                
+//                            } else {
+//                                Text("No Item")
+//                                    .foregroundStyle(Color.secondary)
+//                            }
+//                        }
+//                        Spacer()
+//                    }
+//                             ,
+//                             color: color)
+//                   // .padding(.top, 5)
+//                    .padding(5)
+//                }
+//            }
+//            .tabViewStyle(.page)
         }
         .frame(height: 300)
         //.padding(.bottom, 25)
         .task {
-            try? await tipViewModel.getTipOfTheDay()
+           // try? await tipViewModel.getTipOfTheDay()
+            try? await tipViewModel.getTip()
         }
       
     }

@@ -20,14 +20,13 @@ struct TabBarView: View {
                 HomeView()
             }
             .tabItem {
-                Label(TabBar.home.rawValue, systemImage: TabBar.home.image)
+                Label(TabBar.home.rawValue, systemImage: roadMapViewModel.selectedProfession?.image ?? TabBar.home.image)
             }
             .tag(TabBar.home)
             
             // MARK: - Calendar...
             NavigationStack {
                 CalendarView()
-             //   TasksListView()
             }
             .tabItem {
                 Label(TabBar.calendar.rawValue, systemImage: TabBar.calendar.image)
@@ -45,7 +44,7 @@ struct TabBarView: View {
             
             // MARK: - Notes...
             NavigationStack {
-               NotesView()
+                NotesView(color: roadMapViewModel.selectedProfession?.color ?? "Lime")
             }
             .tabItem {
                 Label(TabBar.notes.rawValue, systemImage: TabBar.notes.image)
@@ -63,24 +62,13 @@ struct TabBarView: View {
         }
         .task {
             try? await profileViewModel.loadCurrentUser()
-                
-        // try? await roadMapViewModel.uploadSectors()
-      
-            
-//            try? await roadMapViewModel.uploadRoadMapLevels()
-            
-//            switch roadMapViewModel.selectedProfession {
-//            case .iosDeveloper:
-//                try? await roadMapViewModel.getLevels()
-//            case .productDesigner:
-//                try? await roadMapViewModel.getTipOfTheDay()
-//            case .uIUXDesigner:
-//                try? await roadMapViewModel.getTipOfTheDay()
-//            }
-      
-            // try? await roadMapViewModel.getLevels()
-         //   try? await roadMapViewModel.getTipOfTheDay()
+       //  try? await roadMapViewModel.uploadSectors()
+       //     try? await roadMapViewModel.uploadRoadMapLevels()
         }
+//        .onAppear{
+//
+//        }
+        .accentColor(Color(roadMapViewModel.selectedProfession?.color ?? "Lime"))
     }
 }
 
@@ -100,13 +88,14 @@ enum TabBar: String {
     var image: String {
         switch self {
         case .home:
-            return "swift"
+            return "house"
         case .calendar:
             return "calendar"
         case .myProgress:
             return "chart.line.uptrend.xyaxis"
         case .notes:
-            return "book.pages"
+            return "doc.plaintext"
+            //return "book.pages"
         case .settings:
             return "gear"
         }

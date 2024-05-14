@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BE2180A12BC9E4440082CF2F /* RoadMapCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2180A02BC9E4440082CF2F /* RoadMapCardView.swift */; };
+		BE2180A12BC9E4440082CF2F /* RoadMapSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2180A02BC9E4440082CF2F /* RoadMapSectionView.swift */; };
 		BE2444B42AF4FD5100385766 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2444B32AF4FD5100385766 /* Color.swift */; };
 		BE2444B82AF4FDC100385766 /* OnBoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2444B72AF4FDC100385766 /* OnBoardingView.swift */; };
 		BE2444BB2AF4FE6200385766 /* RoadMapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2444BA2AF4FE6200385766 /* RoadMapManager.swift */; };
@@ -26,9 +26,9 @@
 		BE2444E42AF535FD00385766 /* StaggeredGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2444E32AF535FD00385766 /* StaggeredGrid.swift */; };
 		BE2444E62AF5365400385766 /* LinearProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2444E52AF5365400385766 /* LinearProgressView.swift */; };
 		BE2444E82AF5371500385766 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2444E72AF5371500385766 /* ProgressBar.swift */; };
-		BE2444EA2AF5376D00385766 /* LevelListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2444E92AF5376D00385766 /* LevelListView.swift */; };
-		BE2444ED2AF5380B00385766 /* RoadMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2444EC2AF5380B00385766 /* RoadMapView.swift */; };
-		BE2444EF2AF5388800385766 /* DetailSubCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2444EE2AF5388800385766 /* DetailSubCategoryView.swift */; };
+		BE2444EA2AF5376D00385766 /* ProgressLevelList.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2444E92AF5376D00385766 /* ProgressLevelList.swift */; };
+		BE2444ED2AF5380B00385766 /* ProgressRoadMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2444EC2AF5380B00385766 /* ProgressRoadMap.swift */; };
+		BE2444EF2AF5388800385766 /* SubCategoryDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2444EE2AF5388800385766 /* SubCategoryDetail.swift */; };
 		BE2444F12AF53A7E00385766 /* AddNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2444F02AF53A7E00385766 /* AddNoteView.swift */; };
 		BE253A272B0227660001B772 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = BE253A262B0227660001B772 /* FirebaseFirestore */; };
 		BE253A292B0227660001B772 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BE253A282B0227660001B772 /* FirebaseFirestoreSwift */; };
@@ -57,11 +57,15 @@
 		BE67635F2AE6643400F6A344 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE67635E2AE6643400F6A344 /* Utilities.swift */; };
 		BE6A5F142B51495A00675AE6 /* UserProgressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6A5F132B51495A00675AE6 /* UserProgressViewModel.swift */; };
 		BE6A5F162B5152F800675AE6 /* QuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6A5F152B5152F800675AE6 /* QuizView.swift */; };
+		BE6E921A2BE3C6B4007C998E /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6E92192BE3C6B4007C998E /* LaunchView.swift */; };
 		BE7180BC2BB082520010148D /* MentorsSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7180BB2BB082520010148D /* MentorsSectionView.swift */; };
+		BE74F5882BE18AAF007B4D21 /* UserNoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE74F5872BE18AAF007B4D21 /* UserNoteModel.swift */; };
+		BE74F58A2BE18AEB007B4D21 /* UserTaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE74F5892BE18AEB007B4D21 /* UserTaskModel.swift */; };
 		BE75D89A29C9FBE300DED380 /* SwiftWayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE75D89929C9FBE300DED380 /* SwiftWayApp.swift */; };
 		BE75D89E29C9FBE400DED380 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE75D89D29C9FBE400DED380 /* Assets.xcassets */; };
 		BE75D8A129C9FBE400DED380 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE75D8A029C9FBE400DED380 /* Preview Assets.xcassets */; };
 		BE771B2C2BC6FC05009827A3 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE771B2B2BC6FC05009827A3 /* Launch Screen.storyboard */; };
+		BE8800ED2BEE7F31005FD421 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8800EC2BEE7F31005FD421 /* UserProfileView.swift */; };
 		BE8CEC352AE4359F002A5A89 /* SignInGoogleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8CEC342AE4359F002A5A89 /* SignInGoogleHelper.swift */; };
 		BE93D4252B4D89CA0072BA83 /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE93D4242B4D89CA0072BA83 /* AddTaskView.swift */; };
 		BE95F41B2B45987500F65110 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE95F41A2B45987500F65110 /* TaskViewModel.swift */; };
@@ -73,18 +77,18 @@
 		BEA324BA2BBA844200F6011B /* TipViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA324B92BBA844200F6011B /* TipViewModel.swift */; };
 		BEA324BC2BBAC4D200F6011B /* MentorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA324BB2BBAC4D200F6011B /* MentorViewModel.swift */; };
 		BEA3490C2B1DE93F00B5D6DA /* RatingSubCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA3490B2B1DE93F00B5D6DA /* RatingSubCategoryView.swift */; };
+		BEB6F5C72BEA368E007F2989 /* OnFirstAppearViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB6F5C62BEA368E007F2989 /* OnFirstAppearViewModifier.swift */; };
 		BED61D0A2BC7CE6F009B66A6 /* CustomText.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED61D092BC7CE6F009B66A6 /* CustomText.swift */; };
 		BEE918862B17447800793470 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE918852B17447800793470 /* HeaderView.swift */; };
 		BEE918882B17457100793470 /* ProgressSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE918872B17457100793470 /* ProgressSectionView.swift */; };
 		BEE9188A2B174A7600793470 /* TopsSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE918892B174A7600793470 /* TopsSectionView.swift */; };
 		BEE9188C2B174B0800793470 /* TipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE9188B2B174B0800793470 /* TipView.swift */; };
 		BEE9188E2B17625600793470 /* CustomPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE9188D2B17625600793470 /* CustomPickerView.swift */; };
-		BEEDEE092BD1A6030033F4D7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BEEDEE082BD1A6030033F4D7 /* GoogleService-Info.plist */; };
 		BEFC44BD2B1A768D00D9F9E7 /* Query+EXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFC44BC2B1A768D00D9F9E7 /* Query+EXT.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		BE2180A02BC9E4440082CF2F /* RoadMapCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoadMapCardView.swift; sourceTree = "<group>"; };
+		BE2180A02BC9E4440082CF2F /* RoadMapSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoadMapSectionView.swift; sourceTree = "<group>"; };
 		BE2444B32AF4FD5100385766 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		BE2444B72AF4FDC100385766 /* OnBoardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingView.swift; sourceTree = "<group>"; };
 		BE2444BA2AF4FE6200385766 /* RoadMapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoadMapManager.swift; sourceTree = "<group>"; };
@@ -103,9 +107,9 @@
 		BE2444E32AF535FD00385766 /* StaggeredGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaggeredGrid.swift; sourceTree = "<group>"; };
 		BE2444E52AF5365400385766 /* LinearProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinearProgressView.swift; sourceTree = "<group>"; };
 		BE2444E72AF5371500385766 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
-		BE2444E92AF5376D00385766 /* LevelListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelListView.swift; sourceTree = "<group>"; };
-		BE2444EC2AF5380B00385766 /* RoadMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoadMapView.swift; sourceTree = "<group>"; };
-		BE2444EE2AF5388800385766 /* DetailSubCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSubCategoryView.swift; sourceTree = "<group>"; };
+		BE2444E92AF5376D00385766 /* ProgressLevelList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressLevelList.swift; sourceTree = "<group>"; };
+		BE2444EC2AF5380B00385766 /* ProgressRoadMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressRoadMap.swift; sourceTree = "<group>"; };
+		BE2444EE2AF5388800385766 /* SubCategoryDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubCategoryDetail.swift; sourceTree = "<group>"; };
 		BE2444F02AF53A7E00385766 /* AddNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNoteView.swift; sourceTree = "<group>"; };
 		BE253A2A2B0228340001B772 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		BE2FB8D52B03E14200A727AF /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
@@ -127,12 +131,16 @@
 		BE67635E2AE6643400F6A344 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		BE6A5F132B51495A00675AE6 /* UserProgressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProgressViewModel.swift; sourceTree = "<group>"; };
 		BE6A5F152B5152F800675AE6 /* QuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizView.swift; sourceTree = "<group>"; };
+		BE6E92192BE3C6B4007C998E /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; usesTabs = 0; };
 		BE7180BB2BB082520010148D /* MentorsSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentorsSectionView.swift; sourceTree = "<group>"; };
+		BE74F5872BE18AAF007B4D21 /* UserNoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNoteModel.swift; sourceTree = "<group>"; };
+		BE74F5892BE18AEB007B4D21 /* UserTaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTaskModel.swift; sourceTree = "<group>"; };
 		BE75D89629C9FBE300DED380 /* SwiftWay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftWay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE75D89929C9FBE300DED380 /* SwiftWayApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftWayApp.swift; sourceTree = "<group>"; };
 		BE75D89D29C9FBE400DED380 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BE75D8A029C9FBE400DED380 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BE771B2B2BC6FC05009827A3 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		BE8800EC2BEE7F31005FD421 /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		BE8CEC342AE4359F002A5A89 /* SignInGoogleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInGoogleHelper.swift; sourceTree = "<group>"; };
 		BE93D4242B4D89CA0072BA83 /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
 		BE95F41A2B45987500F65110 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
@@ -145,13 +153,13 @@
 		BEA324BB2BBAC4D200F6011B /* MentorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentorViewModel.swift; sourceTree = "<group>"; };
 		BEA3490B2B1DE93F00B5D6DA /* RatingSubCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingSubCategoryView.swift; sourceTree = "<group>"; };
 		BEB2D64E2BD1A01300A6977E /* SwiftWay-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "SwiftWay-Info.plist"; sourceTree = SOURCE_ROOT; };
+		BEB6F5C62BEA368E007F2989 /* OnFirstAppearViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnFirstAppearViewModifier.swift; sourceTree = "<group>"; };
 		BED61D092BC7CE6F009B66A6 /* CustomText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomText.swift; sourceTree = "<group>"; };
 		BEE918852B17447800793470 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		BEE918872B17457100793470 /* ProgressSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressSectionView.swift; sourceTree = "<group>"; };
 		BEE918892B174A7600793470 /* TopsSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopsSectionView.swift; sourceTree = "<group>"; };
 		BEE9188B2B174B0800793470 /* TipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipView.swift; sourceTree = "<group>"; };
 		BEE9188D2B17625600793470 /* CustomPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPickerView.swift; sourceTree = "<group>"; };
-		BEEDEE082BD1A6030033F4D7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BEFC44BC2B1A768D00D9F9E7 /* Query+EXT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Query+EXT.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -214,6 +222,8 @@
 				BE2444B92AF4FE4300385766 /* Service */,
 				BEA324B72BBA7F8700F6011B /* MentorModel.swift */,
 				BE2444BE2AF4FF5900385766 /* RoadMapModel.swift */,
+				BE74F5872BE18AAF007B4D21 /* UserNoteModel.swift */,
+				BE74F5892BE18AEB007B4D21 /* UserTaskModel.swift */,
 				BEA324B52BBA7F1900F6011B /* TipModel.swift */,
 			);
 			path = Models;
@@ -223,6 +233,7 @@
 			isa = PBXGroup;
 			children = (
 				BE2FB8D52B03E14200A727AF /* ProfileViewModel.swift */,
+				BE6A5F132B51495A00675AE6 /* UserProgressViewModel.swift */,
 				BEA324BB2BBAC4D200F6011B /* MentorViewModel.swift */,
 				BE2444C52AF5000A00385766 /* RoadMapViewModel.swift */,
 				BEA324B92BBA844200F6011B /* TipViewModel.swift */,
@@ -233,14 +244,8 @@
 		BE2444C72AF5021400385766 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				BE2444C82AF5022500385766 /* BackgroundView.swift */,
-				BE2444CA2AF5023600385766 /* RoundedRectangleShape.swift */,
-				BE2444CC2AF5024900385766 /* WebView.swift */,
-				BE2444CE2AF5027100385766 /* CardView.swift */,
-				BE2444D02AF5029E00385766 /* SpirographView.swift */,
-				BE2444D32AF502C600385766 /* PrimaryButton.swift */,
-				BEA2E10E2BB2C79800A4341C /* CircleImage.swift */,
-				BED61D092BC7CE6F009B66A6 /* CustomText.swift */,
+				BEB6F5C42BEA35F8007F2989 /* SubViews */,
+				BEB6F5C52BEA3674007F2989 /* ViewModifiers */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -251,7 +256,7 @@
 				BE2444D62AF50B5200385766 /* HomeView.swift */,
 				BEE918852B17447800793470 /* HeaderView.swift */,
 				BEE918872B17457100793470 /* ProgressSectionView.swift */,
-				BE2180A02BC9E4440082CF2F /* RoadMapCardView.swift */,
+				BE2180A02BC9E4440082CF2F /* RoadMapSectionView.swift */,
 				BE7180BB2BB082520010148D /* MentorsSectionView.swift */,
 				BEE918892B174A7600793470 /* TopsSectionView.swift */,
 				BEE9188B2B174B0800793470 /* TipView.swift */,
@@ -276,11 +281,10 @@
 			children = (
 				BE2444E12AF535A300385766 /* Components */,
 				BE2444DC2AF50F7200385766 /* MyProgressView.swift */,
-				BE2444E92AF5376D00385766 /* LevelListView.swift */,
-				BE2444EC2AF5380B00385766 /* RoadMapView.swift */,
-				BE2444EE2AF5388800385766 /* DetailSubCategoryView.swift */,
+				BE2444E92AF5376D00385766 /* ProgressLevelList.swift */,
+				BE2444EC2AF5380B00385766 /* ProgressRoadMap.swift */,
+				BE2444EE2AF5388800385766 /* SubCategoryDetail.swift */,
 				BE6A5F152B5152F800675AE6 /* QuizView.swift */,
-				BE6A5F132B51495A00675AE6 /* UserProgressViewModel.swift */,
 			);
 			path = MyProgress;
 			sourceTree = "<group>";
@@ -314,13 +318,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		BE253A2C2B0229250001B772 /* Ext+Comp */ = {
+		BE253A2C2B0229250001B772 /* Ext+Comp+SubViews */ = {
 			isa = PBXGroup;
 			children = (
 				BE2444B02AF4FCE800385766 /* Extensions */,
 				BE2444C72AF5021400385766 /* Components */,
 			);
-			path = "Ext+Comp";
+			path = "Ext+Comp+SubViews";
 			sourceTree = "<group>";
 		};
 		BE2FB8D72B03E35700A727AF /* Firestore */ = {
@@ -365,11 +369,11 @@
 		BE6075372AE17D22002EC903 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				BE771B2B2BC6FC05009827A3 /* Launch Screen.storyboard */,
 				BE6074F12AE123FF002EC903 /* ContentView.swift */,
-				BE253A2C2B0229250001B772 /* Ext+Comp */,
-				BE60746F2AE11CA5002EC903 /* Authentication */,
+				BE253A2C2B0229250001B772 /* Ext+Comp+SubViews */,
+				BE6E92182BE3C68E007C998E /* Launch */,
 				BE2444B52AF4FDAC00385766 /* OnBoarding */,
+				BE60746F2AE11CA5002EC903 /* Authentication */,
 				BE6075382AE17D37002EC903 /* TabBarViews */,
 			);
 			path = Views;
@@ -396,8 +400,18 @@
 				BE4F7B412B3586CE0026D18B /* FavoriteTipsViewModel.swift */,
 				BE6075332AE176B6002EC903 /* SettingsView.swift */,
 				BE60753C2AE2849F002EC903 /* SettingsViewModel.swift */,
+				BE8800EC2BEE7F31005FD421 /* UserProfileView.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		BE6E92182BE3C68E007C998E /* Launch */ = {
+			isa = PBXGroup;
+			children = (
+				BE771B2B2BC6FC05009827A3 /* Launch Screen.storyboard */,
+				BE6E92192BE3C6B4007C998E /* LaunchView.swift */,
+			);
+			path = Launch;
 			sourceTree = "<group>";
 		};
 		BE75D88D29C9FBE300DED380 = {
@@ -423,7 +437,6 @@
 				BEB2D64E2BD1A01300A6977E /* SwiftWay-Info.plist */,
 				BE75D89929C9FBE300DED380 /* SwiftWayApp.swift */,
 				BE2444BC2AF4FEBF00385766 /* Core */,
-				BEEDEE082BD1A6030033F4D7 /* GoogleService-Info.plist */,
 				BE75D89D29C9FBE400DED380 /* Assets.xcassets */,
 				BE75D89F29C9FBE400DED380 /* Preview Content */,
 			);
@@ -446,6 +459,29 @@
 				BE67635C2AE65B6500F6A344 /* SignInAppleHelper.swift */,
 			);
 			path = Authentication;
+			sourceTree = "<group>";
+		};
+		BEB6F5C42BEA35F8007F2989 /* SubViews */ = {
+			isa = PBXGroup;
+			children = (
+				BE2444C82AF5022500385766 /* BackgroundView.swift */,
+				BE2444CA2AF5023600385766 /* RoundedRectangleShape.swift */,
+				BE2444CC2AF5024900385766 /* WebView.swift */,
+				BE2444CE2AF5027100385766 /* CardView.swift */,
+				BE2444D02AF5029E00385766 /* SpirographView.swift */,
+				BE2444D32AF502C600385766 /* PrimaryButton.swift */,
+				BEA2E10E2BB2C79800A4341C /* CircleImage.swift */,
+				BED61D092BC7CE6F009B66A6 /* CustomText.swift */,
+			);
+			path = SubViews;
+			sourceTree = "<group>";
+		};
+		BEB6F5C52BEA3674007F2989 /* ViewModifiers */ = {
+			isa = PBXGroup;
+			children = (
+				BEB6F5C62BEA368E007F2989 /* OnFirstAppearViewModifier.swift */,
+			);
+			path = ViewModifiers;
 			sourceTree = "<group>";
 		};
 		BEFC44BB2B1A767500D9F9E7 /* Extensions */ = {
@@ -528,7 +564,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE75D8A129C9FBE400DED380 /* Preview Assets.xcassets in Resources */,
-				BEEDEE092BD1A6030033F4D7 /* GoogleService-Info.plist in Resources */,
 				BE771B2C2BC6FC05009827A3 /* Launch Screen.storyboard in Resources */,
 				BE75D89E29C9FBE400DED380 /* Assets.xcassets in Resources */,
 			);
@@ -542,6 +577,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE6075302AE173EB002EC903 /* AuthenticationViewModel.swift in Sources */,
+				BE6E921A2BE3C6B4007C998E /* LaunchView.swift in Sources */,
 				BE4C54EF2BCAC59800D0C2DF /* MentorManager.swift in Sources */,
 				BE2444DD2AF50F7200385766 /* MyProgressView.swift in Sources */,
 				BE2444D12AF5029E00385766 /* SpirographView.swift in Sources */,
@@ -556,24 +592,27 @@
 				BE7180BC2BB082520010148D /* MentorsSectionView.swift in Sources */,
 				BE6075362AE177A7002EC903 /* ProfileView.swift in Sources */,
 				BEE9188C2B174B0800793470 /* TipView.swift in Sources */,
+				BE8800ED2BEE7F31005FD421 /* UserProfileView.swift in Sources */,
 				BE95F41B2B45987500F65110 /* TaskViewModel.swift in Sources */,
 				BEA324B62BBA7F1900F6011B /* TipModel.swift in Sources */,
 				BE6075342AE176B6002EC903 /* SettingsView.swift in Sources */,
 				BE4F7B422B3586CE0026D18B /* FavoriteTipsViewModel.swift in Sources */,
+				BE74F58A2BE18AEB007B4D21 /* UserTaskModel.swift in Sources */,
 				BEA3490C2B1DE93F00B5D6DA /* RatingSubCategoryView.swift in Sources */,
 				BE4F7B402B3586AE0026D18B /* FavoriteTipsView.swift in Sources */,
 				BEA2E10F2BB2C79800A4341C /* CircleImage.swift in Sources */,
 				BE60753B2AE18812002EC903 /* AuthenticationManager.swift in Sources */,
 				BE6A5F142B51495A00675AE6 /* UserProgressViewModel.swift in Sources */,
-				BE2444EF2AF5388800385766 /* DetailSubCategoryView.swift in Sources */,
+				BE2444EF2AF5388800385766 /* SubCategoryDetail.swift in Sources */,
 				BE6A5F162B5152F800675AE6 /* QuizView.swift in Sources */,
 				BEA324B82BBA7F8700F6011B /* MentorModel.swift in Sources */,
 				BEA324BC2BBAC4D200F6011B /* MentorViewModel.swift in Sources */,
-				BE2444EA2AF5376D00385766 /* LevelListView.swift in Sources */,
+				BE2444EA2AF5376D00385766 /* ProgressLevelList.swift in Sources */,
 				BE95F4212B45BB9200F65110 /* TasksListView.swift in Sources */,
+				BE74F5882BE18AAF007B4D21 /* UserNoteModel.swift in Sources */,
 				BE2444B42AF4FD5100385766 /* Color.swift in Sources */,
 				BE8CEC352AE4359F002A5A89 /* SignInGoogleHelper.swift in Sources */,
-				BE2444ED2AF5380B00385766 /* RoadMapView.swift in Sources */,
+				BE2444ED2AF5380B00385766 /* ProgressRoadMap.swift in Sources */,
 				BE6074F22AE123FF002EC903 /* ContentView.swift in Sources */,
 				BE67635F2AE6643400F6A344 /* Utilities.swift in Sources */,
 				BE2444D42AF502C600385766 /* PrimaryButton.swift in Sources */,
@@ -587,13 +626,14 @@
 				BE6075322AE17658002EC903 /* TabBarView.swift in Sources */,
 				BE2444D72AF50B5200385766 /* HomeView.swift in Sources */,
 				BE2444B82AF4FDC100385766 /* OnBoardingView.swift in Sources */,
+				BEB6F5C72BEA368E007F2989 /* OnFirstAppearViewModifier.swift in Sources */,
 				BE2444E82AF5371500385766 /* ProgressBar.swift in Sources */,
 				BEFC44BD2B1A768D00D9F9E7 /* Query+EXT.swift in Sources */,
 				BE75D89A29C9FBE300DED380 /* SwiftWayApp.swift in Sources */,
 				BEE918882B17457100793470 /* ProgressSectionView.swift in Sources */,
 				BE2444BF2AF4FF5900385766 /* RoadMapModel.swift in Sources */,
 				BE2444C62AF5000A00385766 /* RoadMapViewModel.swift in Sources */,
-				BE2180A12BC9E4440082CF2F /* RoadMapCardView.swift in Sources */,
+				BE2180A12BC9E4440082CF2F /* RoadMapSectionView.swift in Sources */,
 				BE60752A2AE15F02002EC903 /* AuthenticationView.swift in Sources */,
 				BE2444CF2AF5027100385766 /* CardView.swift in Sources */,
 				BED61D0A2BC7CE6F009B66A6 /* CustomText.swift in Sources */,

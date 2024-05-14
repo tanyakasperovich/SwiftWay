@@ -113,7 +113,7 @@ struct AddTaskView: View {
                 
                     Button(action: {
                         guard !titleFieldText.isEmpty else { return }
-                        viewModel.addUserTask(task: UserTask(title: titleFieldText, time: date, disclosureExpanded: false, description: descriptionFieldText, dateCreated: Date.now, educationTask: selectedView, items: items))
+                        viewModel.addUserTask(task: UserTask(title: titleFieldText, time: date, disclosureExpanded: false, description: descriptionFieldText, dateCreated: Date.now, educationTask: selectedView, items: items, professionId: viewModel.user?.selectedProfession ?? ""))
                         titleFieldText = ""
                         descriptionFieldText = ""
                         date = Date()

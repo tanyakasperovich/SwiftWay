@@ -89,5 +89,5 @@ struct TaskView: View {
 }
 
 #Preview {
-    TaskView(disclosureExpanded: .constant(true), task: UserTask(title: "Title titletitle title", time: Date(), disclosureExpanded: false, description: "Description descriptiondescription description description. description, description description.", dateCreated: Date(), educationTask: true, items: [Item(id: "id1", title: "Title 1", isCompleted: true), Item(id: "id2", title: "Title 2", isCompleted: false), Item(id: "id3", title: "Title 3", isCompleted: false)]))
+    TaskView(disclosureExpanded: .constant(true), task: UserTask(title: "Title titletitle title", time: Date(), disclosureExpanded: false, description: "Description descriptiondescription description description. description, description description.", dateCreated: Date(), educationTask: true, items: [Item(id: "id1", title: "Title 1", isCompleted: true), Item(id: "id2", title: "Title 2", isCompleted: false), Item(id: "id3", title: "Title 3", isCompleted: false)], professionId: ""))
 }

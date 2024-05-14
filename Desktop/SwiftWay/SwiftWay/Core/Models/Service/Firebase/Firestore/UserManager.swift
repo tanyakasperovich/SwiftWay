@@ -10,77 +10,11 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Combine
 
-// Progress Model...
-
-//struct UserProgress: Identifiable, Hashable, Codable {
-////    var id = UUID().uuidString
-////    let userId: String
-////    let totalProgress: Int // update......
-////    let levelsProgress: [LevelProgress]
-////}
-////
-////struct LevelProgress: Identifiable, Hashable, Codable {
-////    var id = UUID().uuidString
-////    let levelId: String
-////    let levelRating: Int // update......
-////    let subCategoriesRating: [SubCategoryProgress]
-////}
-////
-////struct CategoryProgress: Identifiable, Hashable, Codable {
-////    var id = UUID().uuidString
-////    let categoryId: String
-////    let categoryRating: Int // update......
-////    let subCategoriesRating: [SubCategoryProgress]
-////}
-////
-////struct SubCategoryProgress: Identifiable, Hashable, Codable {
-////    var id = UUID().uuidString
-////    let subCategoryId: String
-////    let subCategoryRating: Int // update......
-////    let quizesProgress: [QuizPassing]
-////}
-//
-//// struct QuizPassing: Identifiable, Hashable, Codable {
-//    var id = UUID().uuidString
-//    let quizId: String
-//    let passingDate: Date
-//    let status: String
-//    let quizScore: Int
-//}
-
 enum QuizStatus: String {
     case red = "red"
     case yellow = "yellow"
     case green = "green"
 }
-
-//struct CategoryRating: Identifiable, Hashable, Codable {
-//    var id = UUID().uuidString
-//    let subCategoriesRating: [SubCategoryRating]
-//    
-//    var categoryRating: Int {
-//        let rating = subCategoriesRating.reduce(0, { (result, element) in result + element}) / subCategoriesRating.count
-//
-//        return rating
-//    }
-//}
-
-//struct SubCategoryRating: Identifiable, Hashable, Codable {
-//    var id = UUID().uuidString
-//    let quizScores: [Int]
-//    
-//    var subCategoryRating: Int {
-//       let rating = quizScores.reduce(0, { (result, element) in result + element}) / quizScores.count
-//        
-//        return rating
-//    }
-//}
-
-//struct QuizScore: Identifiable, Hashable, Codable {
-//    var id = UUID().uuidString
-//    let quizScore: Int
-//}
-
 
 // MARK: - DBUser Model...
 struct DBUser: Codable {
@@ -92,6 +26,7 @@ struct DBUser: Codable {
     let isPremium: Bool?
     let profileImagePath: String?
     let profileImagePathUrl: String?
+    let selectedProfession: String?
     
     init(auth: AuthDataResultModel) {
         self.userId = auth.uid
@@ -102,6 +37,7 @@ struct DBUser: Codable {
         self.isPremium = false
         self.profileImagePath = nil
         self.profileImagePathUrl = nil
+        self.selectedProfession = nil
     }
     
     init(
@@ -112,7 +48,8 @@ struct DBUser: Codable {
         dateCreated: Date? = nil,
         isPremium: Bool? = nil,
         profileImagePath: String? = nil,
-        profileImagePathUrl: String? = nil
+        profileImagePathUrl: String? = nil,
+        selectedProfession: String? = nil
     ) {
         self.userId = userId
         self.isAnonymous = isAnonymous
@@ -122,6 +59,7 @@ struct DBUser: Codable {
         self.isPremium = isPremium
         self.profileImagePath = profileImagePath
         self.profileImagePathUrl = profileImagePathUrl
+        self.selectedProfession = selectedProfession
     }
     
     enum CodingKeys: String, CodingKey {
@@ -133,6 +71,7 @@ struct DBUser: Codable {
         case isPremium = "user_isPremium"
         case profileImagePath = "profile_image_path"
         case profileImagePathUrl = "profile_image_path_url"
+        case selectedProfession = "selected_Profession"
     }
 
     init(from decoder: Decoder) throws {
@@ -145,6 +84,7 @@ struct DBUser: Codable {
         self.isPremium = try container.decodeIfPresent(Bool.self, forKey: .isPremium)
         self.profileImagePath = try container.decodeIfPresent(String.self, forKey: .profileImagePath)
         self.profileImagePathUrl = try container.decodeIfPresent(String.self, forKey: .profileImagePathUrl)
+        self.selectedProfession = try container.decodeIfPresent(String.self, forKey: .selectedProfession)
     }
     
     func encode(to encoder: Encoder) throws {
@@ -157,6 +97,7 @@ struct DBUser: Codable {
         try container.encodeIfPresent(self.isPremium, forKey: .isPremium)
         try container.encodeIfPresent(self.profileImagePath, forKey: .profileImagePath)
         try container.encodeIfPresent(self.profileImagePathUrl, forKey: .profileImagePathUrl)
+        try container.encodeIfPresent(self.selectedProfession, forKey: .selectedProfession)
     }
 }
 
@@ -185,146 +126,6 @@ struct UserFavoriteTip: Codable {
         try container.encode(self.tipId, forKey: .tipId)
         try container.encode(self.dateCreated, forKey: .dateCreated)
     }
-}
-
-// User Note Model...
-struct UserNote: Identifiable, Hashable, Codable  {
-    var id = UUID().uuidString
-    let title: String?
-    let description: String?
-    let url: String?
-    let dateCreated: Date?
-    
-    enum CodingKeys: String, CodingKey {
-        case id = "id"
-        case title = "title"
-        case description = "description"
-        case url = "url"
-        case dateCreated = "date_created"
-    }
-    
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        
-        self.id = try container.decode(String.self, forKey: .id)
-        self.title = try container.decodeIfPresent(String.self, forKey: .title)
-        self.description = try container.decodeIfPresent(String.self, forKey: .description)
-        self.url = try container.decodeIfPresent(String.self, forKey: .url)
-        self.dateCreated = try container.decodeIfPresent(Date.self, forKey: .dateCreated)
-    }
-    
-    init(title: String, description: String, url: String, dateCreated: Date) {
-        self.title = title
-        self.description = description
-        self.url = url
-        self.dateCreated = dateCreated
-    }
-
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(self.id, forKey: .id)
-        
-        try container.encodeIfPresent(self.title, forKey: .title)
-        try container.encodeIfPresent(self.description, forKey: .description)
-        try container.encodeIfPresent(self.url, forKey: .url)
-        try container.encodeIfPresent(self.dateCreated, forKey: .dateCreated)
-    }
-}
-
-// User Task Model...
-struct UserTask: Identifiable, Codable {
-    var id = UUID().uuidString
-    var title: String?
-    var time: Date = Date()
-    var disclosureExpanded: Bool?
-    var description: String?
-    var dateCreated: Date?
-    var educationTask: Bool?
-    var items: [Item]
-    
-    enum CodingKeys: String, CodingKey {
-        case id = "id"
-        case title = "title"
-        case time = "time"
-        case disclosureExpanded = "disclosureExpanded"
-        case description = "description"
-        case dateCreated = "dateCreated"
-        case educationTask = "educationTask"
-        case items = "items"
-    }
-    
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.decode(String.self, forKey: .id)
-        self.title = try container.decodeIfPresent(String.self, forKey: .title)
-        self.time = try container.decode(Date.self, forKey: .time)
-        self.disclosureExpanded = try container.decode(Bool.self, forKey: .disclosureExpanded)
-        self.description = try container.decodeIfPresent(String.self, forKey: .description)
-        self.dateCreated = try container.decodeIfPresent(Date.self, forKey: .dateCreated)
-        self.educationTask = try container.decodeIfPresent(Bool.self, forKey: .educationTask)
-        self.items = try container.decodeIfPresent([Item].self, forKey: .items) ?? []
-    }
-    
-    init(title: String, time: Date, disclosureExpanded: Bool, description: String, dateCreated: Date, educationTask: Bool, items: [Item]) {
-        self.title = title
-        self.time = time
-        self.disclosureExpanded = disclosureExpanded
-        self.description = description
-        self.dateCreated = dateCreated
-        self.educationTask = educationTask
-        self.items = items
-    }
-    
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(self.id, forKey: .id)
-        try container.encodeIfPresent(self.title, forKey: .title)
-        try container.encodeIfPresent(self.time, forKey: .time)
-        try container.encodeIfPresent(self.disclosureExpanded, forKey: .disclosureExpanded)
-        try container.encodeIfPresent(self.description, forKey: .description)
-        try container.encodeIfPresent(self.dateCreated, forKey: .dateCreated)
-        try container.encodeIfPresent(self.educationTask, forKey: .educationTask)
-        try container.encodeIfPresent(self.items, forKey: .items)
-
-    }
-    
-}
-
-struct Item: Identifiable, Codable {
-    let id: String
-    let title: String
-    let isCompleted: Bool
-    
-    init(id: String = UUID().uuidString, title: String, isCompleted: Bool) {
-        self.id = id
-        self.title = title
-        self.isCompleted = isCompleted
-    }
-    
-    func updateCompletion() -> Item {
-        return Item(id: id, title: title, isCompleted: !isCompleted)
-    }
-    
-    enum CodingKeys: String, CodingKey {
-        case id = "id"
-        case title = "title"
-        case isCompleted = "isCompleted"
-    }
-    
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.decode(String.self, forKey: .id)
-        self.title = try container.decode(String.self, forKey: .title)
-        self.isCompleted = try container.decode(Bool.self, forKey: .isCompleted)
-    }
-
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(self.id, forKey: .id)
-        try container.encode(self.title, forKey: .title)
-        try container.encode(self.isCompleted, forKey: .isCompleted)
-    }
-    
 }
 
 // User Progress Model...
@@ -406,6 +207,14 @@ final class UserManager {
     func updateUserPremiumStatus(userId: String, isPremium: Bool) async throws {
         let data: [String:Any] = [
             DBUser.CodingKeys.isPremium.rawValue : isPremium,
+        ]
+        
+        try await userDocument(userId: userId).updateData(data)
+    }
+    
+    func updateUserSelectedProfession(userId: String, selectedProfession: String) async throws {
+        let data: [String:Any] = [
+            DBUser.CodingKeys.selectedProfession.rawValue : selectedProfession,
         ]
         
         try await userDocument(userId: userId).updateData(data)
@@ -514,6 +323,16 @@ final class UserManager {
     func removeUserNote(userId: String, noteId: String) async throws {
         try await userNoteDocument(userId: userId, noteId: noteId).delete()
     }
+    
+   func updateUserNote(userId: String, noteId: String, noteTitle: String, noteDescription: String, noteURL: String) async throws {
+        let data: [String:Any] = [
+            UserNote.CodingKeys.title.rawValue : noteTitle,
+            UserNote.CodingKeys.description.rawValue : noteDescription,
+            UserNote.CodingKeys.url.rawValue : noteURL
+        ]
+        
+       try await userNoteDocument(userId: userId, noteId: noteId).updateData(data)
+   }
     
     func getAllUserNotes(userId: String) async throws -> [UserNote] {
         try await userNotesCollection(userId: userId).getDocuments(as: UserNote.self)

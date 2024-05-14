@@ -105,7 +105,7 @@ struct TopsSectionView: View {
     @StateObject private var topsViewModel = TopsViewModel()
     @EnvironmentObject var roadMapViewModel: RoadMapViewModel
     @State var showSection: Bool = true
-    @Binding var selectedProfession: Professions
+    var selectedProfessionId: Professions
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -127,14 +127,14 @@ struct TopsSectionView: View {
             
             if showSection {
                 HStack {
-                    Top10YouTubeChannels_CardView(topsViewModel: topsViewModel, selectedProfession: roadMapViewModel.selectedProfession)
+                    Top10YouTubeChannels_CardView(topsViewModel: topsViewModel, selectedProfessionId: selectedProfessionId)
                     
                     VStack {
                         // Books...
-                        Top10Books_CardView(topsViewModel: topsViewModel, selectedProfession: roadMapViewModel.selectedProfession)
+                        Top10Books_CardView(topsViewModel: topsViewModel, selectedProfessionId: selectedProfessionId)
                         
                         // Courses...
-                        Top5Courses_CardView(topsViewModel: topsViewModel, selectedProfession: roadMapViewModel.selectedProfession)
+                        Top5Courses_CardView(topsViewModel: topsViewModel, selectedProfessionId: selectedProfessionId)
                     }
                 }
             }
@@ -146,7 +146,7 @@ struct TopsSectionView: View {
 }
 
 #Preview {
-    TopsSectionView(selectedProfession: .constant(Professions.iosDeveloper))
+    TopsSectionView(selectedProfessionId: Professions.iosDeveloper)
         .environmentObject(RoadMapViewModel())
 }
     
@@ -154,14 +154,14 @@ struct TopsSectionView: View {
 struct Top10YouTubeChannels_CardView: View {
     @State private var showTop10YouTubeCannelsView: Bool = false
     var topsViewModel: TopsViewModel
-    var selectedProfession: Professions
+    var selectedProfessionId: Professions
     
     var body: some View {
         VStack {
             Button {
                 showTop10YouTubeCannelsView = true
                 
-                topsViewModel.filterYouTybeChanelsForProfession(selectedProfession: selectedProfession)
+                topsViewModel.filterYouTybeChanelsForProfession(selectedProfession: selectedProfessionId)
             } label: {
                 CardView(content:
                             VStack(alignment: .leading) {
@@ -171,7 +171,7 @@ struct Top10YouTubeChannels_CardView: View {
                         .foregroundStyle(Color.theme.fontColorBW)
                         .opacity(0.9)
                 }
-                         , color: selectedProfession.accentColor)
+                         , color: selectedProfessionId.accentColor)
                     .padding(.top, 5)
                     .frame(height: 270)
                 
@@ -179,7 +179,7 @@ struct Top10YouTubeChannels_CardView: View {
             }
         }
         .sheet(isPresented: $showTop10YouTubeCannelsView, content: {
-            Top10YouTubeChannelsView(topsViewModel: topsViewModel, color: selectedProfession.accentColor)
+            Top10YouTubeChannelsView(topsViewModel: topsViewModel, color: selectedProfessionId.accentColor)
                 .presentationDetents([.large, .large])
                 .presentationDragIndicator(.visible)
         })
@@ -255,14 +255,14 @@ struct Top10YouTubeChannelsView: View {
 struct Top10Books_CardView: View {
     @State private var showTop10BooksView: Bool = false
     var topsViewModel: TopsViewModel
-    var selectedProfession: Professions
+    var selectedProfessionId: Professions
     
     var body: some View {
         VStack {
             // Books...
             Button {
                 showTop10BooksView = true
-                topsViewModel.filterBooksForProfession(selectedProfession: selectedProfession)
+                topsViewModel.filterBooksForProfession(selectedProfession: selectedProfessionId)
             } label: {
                 CardView(content:
                             VStack(alignment: .leading) {
@@ -272,13 +272,13 @@ struct Top10Books_CardView: View {
                         .foregroundStyle(Color.theme.fontColorBW)
                         .opacity(0.9)
                 }
-                         , color: selectedProfession.accentColor)
+                         , color: selectedProfessionId.accentColor)
                     .padding(.top, 5)
                     .frame(height: 130)
             }
         }
         .sheet(isPresented: $showTop10BooksView, content: {
-            Top10BooksView(topsViewModel: topsViewModel, color: selectedProfession.accentColor)
+            Top10BooksView(topsViewModel: topsViewModel, color: selectedProfessionId.accentColor)
                 .presentationDetents([.large, .large])
                 .presentationDragIndicator(.visible)
         })
@@ -333,13 +333,13 @@ struct Top10BooksView: View {
 struct Top5Courses_CardView: View {
     @State private var showTop5CoursesView: Bool = false
     var topsViewModel: TopsViewModel
-    var selectedProfession: Professions
+    var selectedProfessionId: Professions
     
     var body: some View {
         VStack {
             Button {
                 showTop5CoursesView = true
-                topsViewModel.filterCoursesForProfession(selectedProfession: selectedProfession)
+                topsViewModel.filterCoursesForProfession(selectedProfession: selectedProfessionId)
             } label: {
                 CardView(content:
                             VStack(alignment: .leading) {
@@ -349,13 +349,13 @@ struct Top5Courses_CardView: View {
                         .foregroundStyle(Color.theme.fontColorBW)
                         .opacity(0.9)
                 }
-                         , color: selectedProfession.accentColor)
+                         , color: selectedProfessionId.accentColor)
                     .padding(.top, 5)
                     .frame(height: 130)
             }
         }
         .sheet(isPresented: $showTop5CoursesView, content: {
-            Top5CoursesView(topsViewModel: topsViewModel, color: selectedProfession.accentColor)
+            Top5CoursesView(topsViewModel: topsViewModel, color: selectedProfessionId.accentColor)
                 .presentationDetents([.large, .large])
                 .presentationDragIndicator(.visible)
         })

@@ -11,33 +11,79 @@ struct NotesView: View {
     @StateObject private var viewModel = NotesViewModel()
     @State private var showAddNoteView: Bool = false
     @State private var showEditView: Bool = false
-   
+    @State private var showEditNoteView: Bool = false
+    var color: String
+    
     var body: some View {
-        List {
+        ScrollView(.vertical, showsIndicators: false) {
             if viewModel.isLoading {
                         ProgressView()
             } else {
                 if !viewModel.userNotes.isEmpty {
-                    ForEach(viewModel.userNotes) { note in
-                        
-                        HStack {
-                            NoteCellView(note: note)
-                            if showEditView {
-                                Spacer()
-                                Button("Delete") {
-                                    viewModel.removeUserNote(noteId: note.id)
+                    VStack(spacing: 8) {
+                        ForEach(viewModel.userNotes) { note in
+                            NavigationLink {
+                                NoteView(note: note, color: color)
+                            } label: {
+                                HStack(alignment: .top  ) {
+                                    if showEditView {
+                                        Button {
+                                            viewModel.removeUserNote(noteId: note.id)
+                                        } label: {
+                                            ButtonView(content: Image(systemName: "trash.fill").foregroundStyle(Color.theme.fontColorWB).padding(.horizontal), backgroundColor: Color(color))
+                                        }
+                                        Spacer()
+                                    }
+                                    
+                                    NoteCellView(note: note)
+                                    Spacer()
+                                    
+                                    if showEditView {
+                                        Button {
+                                            viewModel.updateUserNote(noteId: note.id)
+                                        } label: {
+                                            ButtonView(content:  Text("Edit").bold().foregroundStyle(Color.theme.fontColorWB).padding(.horizontal), backgroundColor: Color(color))
+                                        }
+                                    }
                                 }
-                                .buttonStyle(.bordered)
+                                .padding()
+                                .background{
+                                    RoundedRectangleShape(color: Color(color).opacity(0.2))
+                                }
+                                .padding(.horizontal, 5)
+                                .contextMenu {
+                                    Button("Remove from my notes") {
+                                        viewModel.removeUserNote(noteId: note.id)
+                                    }
+                                    Button("Edit note 🖊️") {
+                                        viewModel.updateUserNote(noteId: note.id)
+                                    }
+                                }
                             }
                         }
-                            .contextMenu {
-                                Button("Remove from my notes") {
-                                    viewModel.removeUserNote(noteId: note.id)
-                                }
-                            }
                     }
                 } else {
-                    Text("Not found...")
+                    VStack(spacing: 15) {
+                        Button {
+                            showAddNoteView = true
+                        } label: {
+                            ButtonView(content: VStack{
+                                HStack{
+                                    Image(systemName: "plus")
+                                    Text("Add New Note")
+                                }
+                                .bold()
+                                .foregroundStyle(Color.theme.fontColorWB)
+                                .padding()
+                                .padding(.horizontal)
+                            }, backgroundColor: Color(color))
+                        }
+                     
+                        Text("Not found...")
+                                .foregroundStyle(Color.secondary)
+                           
+                        Spacer()
+                    }
                 }
             }
         }
@@ -66,13 +112,13 @@ struct NotesView: View {
             showEditView = false
         }
         .sheet(isPresented: $showAddNoteView, content: {
-            AddNoteView(color: Color.accentColor, showAddNoteView: $showAddNoteView)
+            AddNoteView(color: Color(color), showAddNoteView: $showAddNoteView)
         })
     }
 }
 
 #Preview {
-    NotesView()
+    NotesView(color: "")
      //   .environmentObject(NotesViewModel())
 }
 
@@ -88,15 +134,29 @@ struct NoteCellView: View {
                     .font(.headline)
                     .foregroundColor(.primary)
                 
-                Text((note.description ?? "n/a"))
-                    
+                if let description = note.description {
+                    Text(description)
+                }
             }
             .font(.callout)
             .foregroundColor(.secondary)
-            
-            
-            
         }
     }
 }
 
+struct NoteView: View {
+    var note: UserNote
+    var color: String
+    
+    var body: some View {
+        ScrollView(.vertical, showsIndicators: false) {
+            VStack(spacing: 10) {
+                Text(note.title ?? "")
+                    .bold()
+                
+                Text(note.description ?? "")
+                
+            }
+        }
+    }
+}

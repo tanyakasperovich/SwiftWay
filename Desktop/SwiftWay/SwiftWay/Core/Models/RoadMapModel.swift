@@ -8,17 +8,16 @@
 import SwiftUI
 import Foundation
 
-// MARK: - Level Model...
+// MARK: - Sector Model...
 struct Sector: Identifiable, Hashable, Codable {
     var id = UUID().uuidString
     let title: String?
-   // let professions: [Profession]?
+    let professions: [Profession]?
     let color: String?
     
-//    init(title: String, professions: [Profession], color: String) {
-    init(title: String, color: String) {
+    init(title: String, professions: [Profession], color: String) {
         self.title = title
-        //self.professions = professions
+        self.professions = professions
         self.color = color
     }
     
@@ -33,7 +32,7 @@ struct Sector: Identifiable, Hashable, Codable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decode(String.self, forKey: .id)
         self.title = try container.decodeIfPresent(String.self, forKey: .title)
-       // self.professions = try container.decodeIfPresent([Profession].self, forKey: .professions)
+        self.professions = try container.decodeIfPresent([Profession].self, forKey: .professions)
         self.color = try container.decodeIfPresent(String.self, forKey: .color)
     }
     
@@ -41,7 +40,7 @@ struct Sector: Identifiable, Hashable, Codable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(self.id, forKey: .id)
         try container.encodeIfPresent(self.title, forKey: .title)
-      //  try container.encodeIfPresent(self.professions, forKey: .professions)
+        try container.encodeIfPresent(self.professions, forKey: .professions)
         try container.encodeIfPresent(self.color, forKey: .color)
     }
 }
@@ -50,37 +49,41 @@ struct Sector: Identifiable, Hashable, Codable {
 struct Profession: Identifiable, Hashable, Codable {
     var id = UUID().uuidString
     let title: String?
-    let sector: String?
-   // let levels: [Level]?
+    let sectorTitle: String?
+    let color: String?
+    let image: String?
     
-//    init(title: String, levels: [Level]) {
-    init(title: String, sector: String) {
+    init(title: String, sectorTitle: String, color: String, image: String) {
         self.title = title
-        self.sector = sector
-       // self.levels = levels
+        self.sectorTitle = sectorTitle
+        self.color = color
+        self.image = image
     }
     
     enum CodingKeys: String, CodingKey {
         case id = "id"
         case title = "title"
-        case levels = "levels"
-        case sector = "sector"
+        case sectorTitle = "sectorTitle"
+        case color = "color"
+        case image = "image"
     }
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decode(String.self, forKey: .id)
         self.title = try container.decodeIfPresent(String.self, forKey: .title)
-        self.sector = try container.decodeIfPresent(String.self, forKey: .sector)
-       // self.levels = try container.decodeIfPresent([Level].self, forKey: .levels)
+        self.sectorTitle = try container.decodeIfPresent(String.self, forKey: .sectorTitle)
+        self.color = try container.decodeIfPresent(String.self, forKey: .color)
+        self.image = try container.decodeIfPresent(String.self, forKey: .image)
     }
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(self.id, forKey: .id)
         try container.encodeIfPresent(self.title, forKey: .title)
-        try container.encodeIfPresent(self.sector, forKey: .sector)
-      //  try container.encodeIfPresent(self.levels, forKey: .levels)
+        try container.encodeIfPresent(self.sectorTitle, forKey: .sectorTitle)
+        try container.encodeIfPresent(self.color, forKey: .color)
+        try container.encodeIfPresent(self.image, forKey: .image)
     }
 }
 
@@ -91,15 +94,15 @@ struct Level: Identifiable, Hashable, Codable {
     let rating: Double?
     let categories: [Category]?
     let level: Int?
-    let profession: String?
+    let professionId: String?
     
-    init(title: String, rating: Double, categories: [Category], level: Int, profession: String) {
+    init(title: String, rating: Double, categories: [Category], level: Int, professionId: String) {
       
         self.title = title
         self.rating = rating
         self.categories = categories
         self.level = level
-        self.profession = profession
+        self.professionId = professionId
     }
     
     enum CodingKeys: String, CodingKey {
@@ -108,7 +111,7 @@ struct Level: Identifiable, Hashable, Codable {
         case rating = "rating"
         case categories = "categories"
         case level = "level"
-        case profession = "profession"
+        case professionId = "professionId"
     }
 
     init(from decoder: Decoder) throws {
@@ -119,7 +122,7 @@ struct Level: Identifiable, Hashable, Codable {
         self.rating = try container.decodeIfPresent(Double.self, forKey: .rating)
         self.categories = try container.decodeIfPresent([Category].self, forKey: .categories)
         self.level = try container.decodeIfPresent(Int.self, forKey: .level)
-        self.profession = try container.decodeIfPresent(String.self, forKey: .profession)
+        self.professionId = try container.decodeIfPresent(String.self, forKey: .professionId)
     }
     
     func encode(to encoder: Encoder) throws {
@@ -130,7 +133,7 @@ struct Level: Identifiable, Hashable, Codable {
         try container.encodeIfPresent(self.rating, forKey: .rating)
         try container.encodeIfPresent(self.categories, forKey: .categories)
         try container.encodeIfPresent(self.level, forKey: .level)
-        try container.encodeIfPresent(self.profession, forKey: .profession)
+        try container.encodeIfPresent(self.professionId, forKey: .professionId)
     }
 }
 
@@ -371,6 +374,12 @@ struct Clue: Identifiable, Hashable, Codable  {
     }
 }
 
+
+
+
+
+
+
 // MARK: - Professions Enum...
 enum Professions: String, CaseIterable {
     case iosDeveloper = "IOS Developer"
@@ -398,6 +407,15 @@ enum Professions: String, CaseIterable {
             return .theme.limeColor
         case .lashMaker:
             return .theme.purpleColor
+        }
+    }
+    
+    var sector: String {
+        switch self {
+        case .iosDeveloper, .productDesigner, .uIUXDesigner:
+            return "IT"
+        case .lashMaker:
+            return "Beauty"
         }
     }
     
