@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22222" systemVersion="23A344" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="NoteEntity" representedClassName="NoteEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="dateCreated" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="image" optional="YES" attributeType="Binary"/>
+        <attribute name="professionId" optional="YES" attributeType="String"/>
+        <attribute name="subTitle" optional="YES" attributeType="String"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="sections" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SectionEntity" inverseName="note" inverseEntity="SectionEntity"/>
+        <relationship name="urls" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="URLEntity" inverseName="note" inverseEntity="URLEntity"/>
+    </entity>
+    <entity name="SectionEntity" representedClassName="SectionEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="dateCreated" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="image" optional="YES" attributeType="Binary"/>
+        <attribute name="subTitle" optional="YES" attributeType="String"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="note" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="NoteEntity" inverseName="sections" inverseEntity="NoteEntity"/>
+        <relationship name="urls" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="URLEntity" inverseName="section" inverseEntity="URLEntity"/>
+    </entity>
+    <entity name="URLEntity" representedClassName="URLEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="dateCreated" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="url" optional="YES" attributeType="URI"/>
+        <relationship name="note" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="NoteEntity" inverseName="urls" inverseEntity="NoteEntity"/>
+        <relationship name="section" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SectionEntity" inverseName="urls" inverseEntity="SectionEntity"/>
+    </entity>
+</model>
