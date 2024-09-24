@@ -19,19 +19,6 @@ struct SpirographView: View {
             ZStack {
                 Spirograph(innerRadius: Int(innerRadius), outerRadius: Int(outerRadius), distance: Int(distance), amount: amount)
                     .stroke(Color(hue: hue, saturation: 1, brightness: 1), lineWidth: 1.4)
-                
-//                Image("swift")
-//                    .resizable()
-//                    .scaledToFit()
-//                    .frame(width: 200, height: 200)
-//                    .shadow(color: Color.theme.purpleColor, radius: 3, x: -3, y: 5)
-//                
-//                Image("swift")
-//                    .resizable()
-//                    .scaledToFit()
-//                    .frame(width: 200, height: 200)
-//                    .shadow(color: Color.theme.blueColor, radius: 1, x: -10, y: 0)
-//                    .opacity(0.2)
             }
             
             Text("Amount: \(amount, format: .number.precision(.fractionLength(2)))")

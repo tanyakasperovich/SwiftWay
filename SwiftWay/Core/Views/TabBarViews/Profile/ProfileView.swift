@@ -18,7 +18,6 @@ struct ProfileView: View {
     
     var body: some View {
         List {
-     
             if profileViewModel.isLoading {
                 ProgressView()
             } else {
@@ -36,7 +35,6 @@ struct ProfileView: View {
                         profileViewModel.togglePremiumStatus()
                     } label: {
                         PBView(content: Text((user.isPremium ?? false) ? "Отменить подписку" : "Buy Premium").padding(.vertical, 7).padding(.horizontal), color: .accentColor, isSet: .constant(true))
-                      //  PrimaryButton(text: (user.isPremium ?? false) ? "Отменить подписку" : "Buy Premium", backgroundColor: .accentColor, textColor: .white)
                     }
                     
                     

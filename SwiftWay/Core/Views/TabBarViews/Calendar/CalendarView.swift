@@ -20,27 +20,12 @@ struct CalendarView: View {
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            
             // Custom Date Picker...
             CustomDatePicker(currentDate: $currentDate)
-            
-          //  CalendarDatePickerView()
-
-//            TasksView(currentDate: $currentDate)
-//                .padding(.horizontal)
         }
         .navigationTitle("Calendar")
         .navigationBarTitleDisplayMode(.inline)
-//        .navigationBarItems(
-//            trailing:
-//                NavigationLink(
-//                    destination: ProfileView(),
-//                    label: {
-//                        Image(systemName: "person.fill")
-//                            .foregroundColor(Color.black).opacity(0.7)
-//                    })
-//        )
-        .background(BackgroundView(color: .accentColor, image: roadMapViewModel.selectedProfession?.image ?? ""))
+//        .background(BackgroundView(color: .accentColor, image: roadMapViewModel.selectedProfession?.image ?? ""))
     }
 }
 
@@ -81,17 +66,6 @@ struct CustomDatePicker: View {
                             
                         } label: {
                             PBView(content: Text(extraDate()[1]).padding(7), color: .accentColor, isSet: .constant(true))
-//                            PrimaryButton(text: extraDate()[1], backgroundColor: .accentColor, textColor: .white)
-                               // .frame(maxWidth: 170)
-                            //                        Text(extraDate()[1])
-                            //                            .font(.title2.bold())
-                            //                            .padding(.vertical, 5)
-                            //                            .frame(maxWidth: 170)
-                            //                            .foregroundColor(.white)
-                            //                            .background(
-                            //                                RoundedRectangleShape(color: .accentColor)
-                            //                                    .shadow(color: Color.black, radius: 2, x: -1, y: 1)
-                            //                            )
                         }
                         
                     Spacer(minLength: 0)
@@ -184,9 +158,9 @@ struct CustomDatePicker: View {
             // updating Month...
             currentDate = getCurrentMonth()
         }
-        .onAppear{
-                    taskViewModel.getUserTasks()
-                }
+        .task {
+            await taskViewModel.getUserTasks()
+        }
         .padding(.horizontal, 5)
     }
     
@@ -197,7 +171,7 @@ struct CustomDatePicker: View {
             if value.day != -1{
 //                            Text("\(value.day)")
 //                                .font(.title3.bold())
-                
+
                 if let task = taskViewModel.userTasks.first(where: { task in
                     return isSameDay(date1: task.time, date2: value.date)}){
 
@@ -315,79 +289,6 @@ extension Date{
     }
 }
 
-// МОЖНО УДАЛИТЬ....рандомное распределение тасков...
-// Sample Date for Testing...
-func getSampleDate(offset: Int)->Date{
-    let calender = Calendar.current
-    
-    let date = calender.date(byAdding: .day, value: offset, to: Date())
-    
-    return date ?? Date()
-}
-//
-//var tasks: [TaskMetaData] = [
-//    
-//    TaskMetaData(task: [
-//        UserTask(title: "Talk to iJustine", time: Date(), disclosureExpanded: false, description: "Talk to iJustine Talk to iJustine", taskDate: Date(), educationTask: true),
-//        UserTask(title: "iPhone 13 Great Design Change😂",  time: Date(), disclosureExpanded: false, description: "Talk to iJustine Talk to iJustine", taskDate: Date(), educationTask: false),
-//        UserTask(title: "Noting Much Workout !!!", time: Date(), disclosureExpanded: false,  description: "Talk to iJustine Talk to iJustine", taskDate: Date(), educationTask: true),
-//    ], taskDate: Date.now),
-//    
-//    TaskMetaData(task: [
-//        
-//        UserTask(title: "Talk to Jenna Ezarik", time: Date(), disclosureExpanded: false, description: "Talk to iJustine Talk to iJustine", taskDate: Date(), educationTask: true),
-//    ], taskDate: getSampleDate(offset: -3)),
-//    
-//    TaskMetaData(task: [
-//        
-//        UserTask(title: "Meeting with Tim Cook", time: Date(), disclosureExpanded: false, description: "Talk to iJustine Talk to iJustine", taskDate: Date(), educationTask: true),
-//    ], taskDate: getSampleDate(offset: -8)),
-//    
-//    TaskMetaData(task: [
-//        
-//        UserTask(title: "Next Version of SwiftUI", time: Date(), disclosureExpanded: false, description: "Talk to iJustine Talk to iJustine", taskDate: Date(), educationTask: true),
-//    ], taskDate: getSampleDate(offset: 10)),
-//    
-//    TaskMetaData(task: [
-//        
-//        UserTask(title: "Nothing Much Workout !!!", time: Date(), disclosureExpanded: false, description: "Talk to iJustine Talk to iJustine", taskDate: Date(), educationTask: true),
-//    ], taskDate: getSampleDate(offset: -22)),
-//    
-//    TaskMetaData(task: [
-//        
-//        UserTask(title: "iPhone 13 Great Design Change😂", time: Date(), disclosureExpanded: false, description: "Talk to iJustine Talk to iJustine", taskDate: Date(), educationTask: true),
-//    ], taskDate: getSampleDate(offset: 15)),
-//    
-//    TaskMetaData(task: [
-//        
-//       UserTask(title: "App Updates...", time: Date(), disclosureExpanded: false, description: "Talk to iJustine Talk to iJustine", taskDate: Date(), educationTask: true),
-//    ], taskDate: getSampleDate(offset: -20)),
-//]
-
-//class TaskViewModel: ObservableObject {
-//    
-//    // Sample Tasks...
-//    @Published var tasks: [Task] = [
-//        
-//        Task(title: "Talk to iJustine", disclosureExpanded: false, description: "Talk to iJustine Talk to iJustine"),
-//        Task(title: "iPhone 13 Great Design Change😂", disclosureExpanded: false, description: "Talk to iJustine Talk to iJustine"),
-//        Task(title: "Noting Much Workout !!!", disclosureExpanded: false, description: "Talk to iJustine Talk to iJustine"),
-//        
-//        Task(title: "Talk to Jenna Ezarik", disclosureExpanded: false, description: "Talk to iJustine Talk to iJustine"),
-//        
-//       Task(title: "Meeting with Tim Cook", disclosureExpanded: false, description: "Talk to iJustine Talk to iJustine"),
-//        
-//        Task(title: "Next Version of SwiftUI", disclosureExpanded: false, description: "Talk to iJustine Talk to iJustine"),
-//        
-//        Task(title: "Nothing Much Workout !!!", disclosureExpanded: false, description: "Talk to iJustine Talk to iJustine"),
-//        
-//        Task(title: "iPhone 13 Great Design Change😂", disclosureExpanded: false, description: "Talk to iJustine Talk to iJustine"),
-//        
-//        Task(title: "App Updates...", disclosureExpanded: false, description: "Talk to iJustine Talk to iJustine"),
-//        
-//    ]
-//}
-
 // MARK: - CalendarDatePicker
 struct CalendarDatePickerView: View {
     @State private var date = Date()
@@ -401,87 +302,3 @@ struct CalendarDatePickerView: View {
         .datePickerStyle(.graphical)
     }
 }
-
-
-
-
-// MARK: - Tasks View...
-//struct TasksView: View {
-//    @StateObject private var viewModel = TaskViewModel()
-//    
-//    @State private var selectedView = true
-//    @State private var showAddEducationTaskView = false
-//    @State private var showAddWorkTaskView = false
-//    
-//    @State private var disclosureExpanded = false
-//    @EnvironmentObject var vm: RoadMapViewModel
-//    @Binding var currentDate: Date
-//    
-//    var body: some View {
-//        VStack(spacing: 10){
-//            HStack(alignment: .top) {
-//                Text("Tasks")
-//                    .font(.title2.bold())
-//                    .frame(maxWidth: .infinity, alignment: .leading)
-//                    .foregroundStyle(Color.theme.fontColorBW)
-//                
-//                AddTasksCardView(showAddEducationTaskView: $showAddEducationTaskView, showAddWorkTaskView: $showAddWorkTaskView, selectedView: $selectedView)
-//                
-//                //            if let task = tasks.first(where: { task in
-//                //                return isSameDay(date1: task.taskDate, date2: currentDate)
-//                //            }){
-//                
-//            }
-//            .padding(.horizontal)
-//    
-//            TasksPickerView(selectedView: $selectedView)
-//            
-//            // AddTasksView...
-//           // AddTasksCardView()
-//            
-//            if viewModel.isLoading {
-//                ProgressView()
-//            } else {
-//                
-////            if let task = tasks.first(where: { task in
-////                return isSameDay(date1: task.taskDate, date2: currentDate)}){
-////                
-//                    if selectedView {
-//                        if !viewModel.userTasks.isEmpty {
-//                            ForEach(viewModel.userTasks) {educationTask in
-//                                TaskView(disclosureExpanded: $disclosureExpanded, task: educationTask)
-//                            }
-//                        } else {
-//                            Text("No Task Found")
-//                        }
-//                    } else {
-//                        if !viewModel.userTasks.isEmpty {
-//                        ForEach(viewModel.userTasks) {educationTask in
-//                            TaskView(disclosureExpanded: $disclosureExpanded, task: educationTask)
-//                        }
-//                    } else {
-//                        Text("No Task Found")
-//                    }
-//                    }
-////                
-////           } else {
-////                Text("No Task Found")
-////            }
-//                
-//        }
-//        }
-//        .padding(.bottom)
-//        .onAppear {
-//            viewModel.getUserTasks()
-//        }
-//    }
-//    
-//    // checking dates...
-//    func isSameDay(date1: Date, date2: Date)->Bool{
-//        let calendar = Calendar.current
-//        
-//        return calendar.isDate(date1, inSameDayAs: date2)
-//    }
-//}
-
-

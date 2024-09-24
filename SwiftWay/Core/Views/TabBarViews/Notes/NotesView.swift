@@ -7,37 +7,6 @@
 
 import SwiftUI
 
-//struct NotesView: View {
-//    @FetchRequest(sortDescriptors: []) private var notes: FetchedResults<NoteEntity>
-//    @Environment(\.managedObjectContext) var context
-//    
-//    var body: some View {
-//        VStack {
-//            List(notes) { note in
-//                VStack {
-//                    Image(uiImage: note.viewImage)
-//                        .resizable()
-//                        .scaledToFit()
-//                    Text(note.title ?? "")
-//                }
-//            }
-//            
-//            Button("Add Note") {
-//                let note = NoteEntity(context: context)
-//                note.title = "Note 1"
-//                try? context.save()
-//            }
-//        }
-//    }
-////    func getImage(imageData: Data?) -> Image {      
-////        if let data = imageData, let image = UIImage(data: data) {
-////            return Image(uiImage: image)
-////        } else {
-////            return Image(systemName: "photo.fill")
-////    }
-////    }
-//}
-
 struct NotesView: View {
     @EnvironmentObject var noteViewModel: NoteViewModel
     @State private var showAddNoteView: Bool = false
@@ -144,119 +113,9 @@ struct NotesView: View {
     }
 }
 
-//struct NotesView: View {
-//    @StateObject private var viewModel = NotesViewModel()
-//    @State private var showAddNoteView: Bool = false
-//    @State private var showEditView: Bool = false
-//    @State private var showEditNoteView: Bool = false
-//    
-//    var body: some View {
-//        ScrollView(.vertical, showsIndicators: false) {
-//            if viewModel.isLoading {
-//                        ProgressView()
-//            } else {
-//                if !viewModel.userNotes.isEmpty {
-//                    VStack(spacing: 8) {
-//                        ForEach(viewModel.userNotes) { note in
-//                            NavigationLink {
-//                                NoteView(note: note)
-//                            } label: {
-//                                HStack(alignment: .top  ) {
-//                                    if showEditView {
-//                                        Button {
-//                                            viewModel.removeUserNote(noteId: note.id)
-//                                        } label: {
-//                                            ButtonView(content: Image(systemName: "trash.fill").foregroundStyle(Color.theme.fontColorWB).padding(.horizontal), backgroundColor: .accentColor)
-//                                        }
-//                                        Spacer()
-//                                    }
-//                                    
-//                                    NoteCellView(note: note)
-//                                    Spacer()
-//                                    
-//                                    if showEditView {
-//                                        Button {
-//                                            viewModel.updateUserNote(noteId: note.id)
-//                                        } label: {
-//                                            ButtonView(content:  Text("Edit").bold().foregroundStyle(Color.theme.fontColorWB).padding(.horizontal), backgroundColor: .accentColor)
-//                                        }
-//                                    }
-//                                }
-//                                .padding()
-//                                .background{
-//                                    RoundedRectangleShape(color: .accentColor.opacity(0.2))
-//                                }
-//                                .padding(.horizontal, 5)
-//                                .contextMenu {
-//                                    Button("Remove from my notes") {
-//                                        viewModel.removeUserNote(noteId: note.id)
-//                                    }
-//                                    Button("Edit note 🖊️") {
-//                                        viewModel.updateUserNote(noteId: note.id)
-//                                    }
-//                                }
-//                            }
-//                        }
-//                    }
-//                } else {
-//                    VStack(spacing: 15) {
-//                        Button {
-//                            showAddNoteView = true
-//                        } label: {
-//                            ButtonView(content: VStack{
-//                                HStack{
-//                                    Image(systemName: "plus")
-//                                    Text("Add New Note")
-//                                }
-//                                .bold()
-//                                .foregroundStyle(Color.theme.fontColorWB)
-//                                .padding()
-//                                .padding(.horizontal)
-//                            }, backgroundColor: .accentColor)
-//                        }
-//                     
-//                        Text("Not found...")
-//                                .foregroundStyle(Color.secondary)
-//                           
-//                        Spacer()
-//                    }
-//                }
-//            }
-//        }
-//        .toolbar {
-//            ToolbarItem(placement: .navigationBarTrailing) {
-//                Button {
-//                    showAddNoteView = true
-//                } label: {
-//                    Image(systemName: "plus")
-//                }
-//                
-//            }
-//        }
-//        .toolbar {
-//            ToolbarItem(placement: .navigationBarLeading) {
-//                Button {
-//                    showEditView.toggle()
-//                } label: {
-//                    Text("Edit")
-//                }
-//            }
-//        }
-//        .navigationTitle("My Notes")
-//        .onAppear{
-//            viewModel.getUserNotes()
-//            showEditView = false
-//        }
-//        .sheet(isPresented: $showAddNoteView, content: {
-//            AddNoteView(showAddNoteView: $showAddNoteView)
-//        })
-//    }
-//}
-
 #Preview {
     NotesView(professionId: "")
-     .environment(\.managedObjectContext, SwiftWayManager().context)
-     //   .environmentObject(NotesViewModel())
+        .environment(\.managedObjectContext, SwiftWayManager.shared.context)
 }
 
 struct NoteCellView: View {
@@ -283,7 +142,6 @@ struct NoteCellView: View {
 
 struct NoteView: View {
     var note: NoteEntity
-  //  @EnvironmentObject var noteViewModel: NoteViewModel
 
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {

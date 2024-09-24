@@ -36,19 +36,6 @@ struct TasksListView: View {
            } else {
                 Text("Not found...")
            }
-//                         if let task = viewModel.userTasks.first(where: { task in
-//                                        return isSameDay(date1: task.time, date2: currentDate)}){
-//            
-//                                TaskView(disclosureExpanded: $disclosureExpanded, task: task)
-//                                    .contextMenu {
-//                                        Button("Remove from my tasks") {
-//                                            viewModel.removeUserTask(taskId: task.id)
-//                                        }
-//                                    }
-//                  }
-//                                   else {
-//                                       Text("Not found...")
-//                                   }
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {

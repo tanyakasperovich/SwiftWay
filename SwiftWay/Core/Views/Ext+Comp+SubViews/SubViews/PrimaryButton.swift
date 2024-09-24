@@ -20,27 +20,6 @@ struct ButtonView<Content: View>: View {
                 )
     }
 }
-    
-//struct PrimaryButton: View {
-//    
-//    var text: String
-//    var backgroundColor: Color
-//    var textColor: Color
-//    
-//    var body: some View {
-//        
-//        ZStack {
-//            RoundedRectangleShape(color: backgroundColor)
-//                .shadow(color: Color.black, radius: 2, x: 0, y: 1)
-//                .padding(2)
-//            Text(text)
-//                .font(.headline)
-//                .padding()
-//            //.padding(.vertical)
-//                .foregroundColor(textColor)
-//        }
-//    }
-//}
 
 #Preview {
     VStack(spacing: 10) {

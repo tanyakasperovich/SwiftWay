@@ -10,20 +10,24 @@ import SwiftUI
 struct MentorsSectionView: View {
     @EnvironmentObject var mentorViewModel: MentorViewModel
     @EnvironmentObject var roadMapViewModel: RoadMapViewModel
-    
+
+    var filteredMentors: [Mentor] {
+        mentorViewModel.mentors.filter { $0.professionId == roadMapViewModel.selectedProfession?.id}
+    }
+
     var body: some View {
         VStack(alignment: .leading) {
             HStack(alignment: .bottom) {
                 Image(systemName: "person.3.fill")
                     .foregroundStyle(Color.theme.fontColor.opacity(0.7))
                     .bold()
-                .padding(.trailing, 5)
-                
+                    .padding(.trailing, 5)
+
                 HeaderText(text: ("Mentors").uppercased(), color: .theme.fontColorBW.opacity(0.7))
-        }
+            }
             .padding(.horizontal)
             .padding(.bottom, 5)
-        
+
             // Hot Pick For You....
             VStack(alignment: .leading) {
                 Text("💥 Hot Pick For You")
@@ -31,13 +35,13 @@ struct MentorsSectionView: View {
                     .bold()
                     .padding(.horizontal)
                     .foregroundStyle(Color.theme.fontColorBW)
-                   // .padding(.bottom, 5)
-                
+                // .padding(.bottom, 5)
+
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
-                       // Spacer(minLength: 10)
-                        
-                        ForEach(mentorViewModel.mentors.filter({$0.professionId == roadMapViewModel.selectedProfession?.id})) { mentor in
+                        // Spacer(minLength: 10)
+
+                        ForEach(filteredMentors) { mentor in
                             NavigationLink {
                                 MentorView(mentor: mentor)
                             } label: {
@@ -45,17 +49,17 @@ struct MentorsSectionView: View {
                                     .frame(width: 70, height: 72)
                             }
                         }
-                       // Spacer(minLength: 8)
+                        // Spacer(minLength: 8)
                     }
                     .padding(.horizontal, 10)
                 }
             }
-            
+
             // Sector Professions...
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
                     Spacer(minLength: 8)
-                   // ForEach(Professions.allCases.filter({$0.sector == selectedProfession.sector}), id: \.self) { profession in
+                    // ForEach(Professions.allCases.filter({$0.sector == selectedProfession.sector}), id: \.self) { profession in
                     ForEach(roadMapViewModel.professions, id: \.self) { profession in
                         let filterMentors = mentorViewModel.mentors.filter({$0.professionId == profession.id})
                         NavigationLink {
@@ -63,19 +67,19 @@ struct MentorsSectionView: View {
                                 .navigationTitle(profession.title ?? "")
                                 .navigationBarTitleDisplayMode(.inline)
                         } label: {
-                           ProfessionCardView(profession: profession)
+                            ProfessionCardView(profession: profession)
                         }
                     }
                     Spacer(minLength: 8)
                 }
             }
             .frame(height: 220)
-            
+
         }
         .padding(.bottom, 10)
         .onAppear{
             Task {
-               try? await mentorViewModel.getAllMentors()
+                try? await mentorViewModel.getAllMentors()
             }
         }
     }
@@ -89,7 +93,7 @@ struct MentorsSectionView: View {
 
 struct ProfessionCardView: View {
     var profession: Profession
-    
+
     var body: some View {
         CardView(content:
                     VStack(alignment: .leading) {
@@ -101,7 +105,7 @@ struct ProfessionCardView: View {
             }
             .padding(.bottom)
             .foregroundStyle(Color.theme.fontColorBW)
-            
+
             HStack {
                 Text(profession.title ?? "")
                     .lineLimit(2)
@@ -109,18 +113,18 @@ struct ProfessionCardView: View {
             .font(.caption)
             .foregroundStyle(Color.secondary)
             .padding(.bottom)
-            
+
             Spacer()
-            
+
             HStack(alignment: .center) {
                 //Text("\(category.mentors.count)")
                 Text("11")
-                
+
                     .bold()
                 Text("mentors")
                     .bold()
                 Spacer()
-                
+
                 Image(systemName: "arrow.right")
             }
             .font(.subheadline)
@@ -135,7 +139,7 @@ struct ProfessionCardView: View {
 
 struct MentorListView: View {
     var mentors: [Mentor]
-    
+
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             ForEach(mentors) { mentor in
@@ -151,7 +155,7 @@ struct MentorListView: View {
 
 struct MentorCardView: View {
     var mentor: Mentor
-    
+
     var body: some View {
         CardView(content:
                     VStack(alignment: .leading) {
@@ -160,7 +164,7 @@ struct MentorCardView: View {
                     ProfileImage(image: Image(mentor.image ?? ""))
                         .frame(width: 90, height: 92)
                 }
-                
+
                 VStack(alignment: .leading) {
                     Text(mentor.name ?? "")
                         .bold()
@@ -168,29 +172,29 @@ struct MentorCardView: View {
                         .lineLimit(1)
                         .padding(.bottom, 5)
                         .foregroundStyle(Color.theme.fontColorBW)
-                    
+
                     Text(mentor.name ?? "")
                         .lineLimit(2)
                         .font(.caption)
                         .foregroundStyle(Color.secondary)
-                    
+
                     Spacer()
                 }
                 .padding(.horizontal)
             }
             .padding(.bottom)
-            
+
             Spacer()
-            
+
             Divider()
-            
+
             HStack(alignment: .center) {
                 Text("\(mentor.students.count)")
                     .bold()
                 Text("students")
                     .bold()
                 Spacer()
-                
+
                 Text("$\(mentor.price ?? 0, specifier: "%.1f")/h")
                     .bold()
                     .foregroundStyle(Color.theme.fontColor)
@@ -214,31 +218,31 @@ struct MentorView: View {
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateStyle = .short
-       // formatter.timeStyle = .short
+        // formatter.timeStyle = .short
         return formatter
     }
     @State private var showAddMentorReviewView = false
-    
+
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(alignment: .leading) {
-             
+
                 MentorProfileView(mentor: mentor)
-                
+
                 // Picker....
                 VStack {
                     Picker("", selection: $selectedView) {
                         Text("Content")
                             .tag(0)
-                        
+
                         Text("Reviews")
                             .tag(1)
                     }
                     .pickerStyle(SegmentedPickerStyle())
                     .padding(.horizontal)
                     .padding(.bottom, 8)
-                    
-              
+
+
                     if selectedView == 0 {
                         if !postViewModel.posts.filter({$0.userId == mentor.userId ?? ""}).isEmpty {
                             CurrentAuthorPostList(userId: mentor.userId ?? "", color: Color.accentColor)
@@ -258,20 +262,20 @@ struct MentorView: View {
                                         PostCardView(content:  VStack(alignment: .leading) {
                                             HStack {
                                                 SmallText(text: review.userId, color: Color.theme.fontColor)
-                                                
+
                                                 Spacer()
-                                                
+
                                                 SmallText(text: dateFormatter.string(from: review.date), color: Color.secondary)
                                             }
                                             .padding(.bottom, 5)
-                                            
+
                                             // Review Text...
                                             SubHeaderText(text: review.review, color: Color.theme.fontColorBW)
                                                 .lineLimit(4)
                                                 .padding(.vertical, 10)
                                                 .multilineTextAlignment(.leading)
                                         }
-                                           )
+                                        )
                                     }
                                 }
                             }
@@ -282,14 +286,14 @@ struct MentorView: View {
                                         showAddMentorReviewView = true
                                     } label: {
                                         ButtonView(content:
-                                            HeaderText(text: "+ Add Review", color: Color.theme.fontColorWB)
+                                                    HeaderText(text: "+ Add Review", color: Color.theme.fontColorWB)
                                             .padding()
                                                    ,
                                                    backgroundColor: .accentColor)
                                     }
                                 }
                                 .padding(.vertical)
-                                
+
                                 Text("No Item")
                                     .padding()
                                     .foregroundStyle(Color.secondary)
@@ -300,7 +304,7 @@ struct MentorView: View {
                         }
                     }
                 }
-               // .padding(.horizontal, 5)
+                // .padding(.horizontal, 5)
             }
             .padding(.horizontal, 5)
             .padding(.top, 40)
@@ -320,20 +324,20 @@ struct MentorView: View {
                     } label: {
                         Image(systemName: "heart")
                     }
-                    
-                    
+
+
                 }
             }
         }
         .sheet(isPresented: $showAddMentorReviewView, content: {
             AddMentorReviewView(showAddMentorReviewView: $showAddMentorReviewView)
-       })
+        })
     }
 }
 
 struct AddMentorReviewView: View {
     @Binding var showAddMentorReviewView: Bool
-    
+
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack {
@@ -358,20 +362,20 @@ struct ReviewView: View {
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateStyle = .short
-       // formatter.timeStyle = .short
+        // formatter.timeStyle = .short
         return formatter
     }
-    
+
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(alignment: .leading, spacing: 15) {
                 HStack {
                     SmallText(text: review.userId, color: Color.theme.fontColor)
                     Spacer()
-                    
+
                     SmallText(text: dateFormatter.string(from: review.date), color: Color.secondary)
                 }
-                    .padding(.horizontal)
+                .padding(.horizontal)
                 SubHeaderText(text: review.review, color: Color.theme.fontColorBW)
                     .padding(.horizontal, 8)
                     .multilineTextAlignment(.leading)

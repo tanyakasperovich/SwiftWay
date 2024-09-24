@@ -10,7 +10,7 @@ import SwiftUI
 
 class SwiftWayManager {
     // Singleton...
-    static let instance = SwiftWayManager()
+    static let shared = SwiftWayManager()
     
     let container: NSPersistentContainer
     let context: NSManagedObjectContext

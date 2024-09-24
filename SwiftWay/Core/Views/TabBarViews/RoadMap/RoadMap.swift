@@ -24,7 +24,7 @@ struct RoadMap: View {
                 .offset(y: 65)
                 .padding(.bottom, 65)
             }
-            .background(BackgroundView(color: .accentColor, image: roadMapViewModel.selectedProfession?.image ?? ""))
+//            .background(BackgroundView(color: .accentColor, image: roadMapViewModel.selectedProfession?.image ?? ""))
             
             VStack {
                 CustomPickerView(selectedView: $selectedView)

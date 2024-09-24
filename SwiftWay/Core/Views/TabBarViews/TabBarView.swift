@@ -6,13 +6,14 @@
 //
 
 import SwiftUI
-
+// MARK: - TabBar View...
 struct TabBarView: View {
     @Binding var showSignInView: Bool
     @State var selectedView: TabBar = .home
     @EnvironmentObject var profileViewModel: ProfileViewModel
     @EnvironmentObject var roadMapViewModel: RoadMapViewModel
-    
+    let persistenceController = SwiftWayManager.shared
+
     var body: some View {
         TabView(selection: $selectedView) {
             // MARK: - Home...
@@ -23,7 +24,7 @@ struct TabBarView: View {
                 Label(TabBar.home.rawValue, systemImage: roadMapViewModel.selectedProfession?.image ?? TabBar.home.image)
             }
             .tag(TabBar.home)
-            
+
             // MARK: - Calendar...
             NavigationStack {
                 CalendarView()
@@ -32,7 +33,7 @@ struct TabBarView: View {
                 Label(TabBar.calendar.rawValue, systemImage: TabBar.calendar.image)
             }
             .tag(TabBar.calendar)
-            
+
             // MARK: - MyProgress...
             NavigationStack {
                 RoadMap()
@@ -41,20 +42,20 @@ struct TabBarView: View {
                 Label(TabBar.roadMap.rawValue, systemImage: TabBar.roadMap.image)
             }
             .tag(TabBar.roadMap)
-            
+
             // MARK: - Notes...
             NavigationStack {
                 NotesView(professionId: roadMapViewModel.selectedProfession?.id ?? "")
-                    .environment(\.managedObjectContext, SwiftWayManager().context)
+                    .environment(\.managedObjectContext, persistenceController.context)
             }
             .tabItem {
                 Label(TabBar.notes.rawValue, systemImage: TabBar.notes.image)
             }
             .tag(TabBar.notes)
-            
+
             // MARK: - Settings...
             NavigationStack {
-                ProfileView(showSignInView: $showSignInView)           
+                ProfileView(showSignInView: $showSignInView)
             }
             .tabItem {
                 Label(TabBar.settings.rawValue, systemImage: TabBar.settings.image)
@@ -62,9 +63,12 @@ struct TabBarView: View {
             .tag(TabBar.settings)
         }
         .task {
-            try? await profileViewModel.loadCurrentUser()
-       //  try? await roadMapViewModel.uploadSectors()
-       //     try? await roadMapViewModel.uploadRoadMapLevels()
+                do {
+                    try await profileViewModel.loadCurrentUser()
+                } catch {
+                    print("Failed to load user: \(error)")
+                    // Показать алерт пользователю
+                }
         }
         .accentColor(Color(roadMapViewModel.selectedProfession?.color ?? "Lime"))
     }
@@ -74,7 +78,7 @@ struct TabBarView: View {
     TabBarView(showSignInView: .constant(false))
         .environmentObject(RoadMapViewModel())
         .environmentObject(ProfileViewModel())
-        .environment(\.managedObjectContext, SwiftWayManager().context)
+        .environment(\.managedObjectContext, SwiftWayManager.shared.context)
 }
 
 enum TabBar: String {
@@ -83,7 +87,7 @@ enum TabBar: String {
     case roadMap = "RoadMap"
     case notes = "My Notes"
     case settings = "Profile"
-    
+
     var image: String {
         switch self {
         case .home:
@@ -92,10 +96,8 @@ enum TabBar: String {
             return "calendar"
         case .roadMap:
             return "map"
-           // return "chart.line.uptrend.xyaxis"
         case .notes:
             return "doc.plaintext"
-            //return "book.pages"
         case .settings:
             return "person.fill"
         }

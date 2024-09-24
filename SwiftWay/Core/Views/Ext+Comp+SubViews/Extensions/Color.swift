@@ -26,16 +26,56 @@ struct ColorTheme {
     let fontColorWB = Color("FontColorWB")
     let fontColorBW = Color("FontColorBW")
     let fontColor = Color("FontColor")
-    
-    // accentColor
-   // let sectorBeauty = Color("SectorBeauty")
-    
+
+    // Основные цвета
+    let primary = Color("PrimaryPurple")
+    let secondary = Color("SecondaryBlue")
+    let accent = Color("AccentOrange")
+
+    // Фоновые цвета
+    let background = Color("BackgroundLight")
+    let surface = Color("SurfaceWhite")
+    let card = Color("CardWhite")
+
+    // Текст
+    let textPrimary = Color("TextPrimary")
+    let textSecondary = Color("TextSecondary")
+    let textTertiary = Color("TextTertiary")
+
+    // Статусы
+    let success = Color("SuccessGreen")
+    let warning = Color("WarningYellow")
+    let error = Color("ErrorRed")
+    let info = Color("InfoBlue")
+
+    // Специальные для обучения
+    let beginner = Color("BeginnerGreen")
+    let intermediate = Color("IntermediateOrange")
+    let advanced = Color("AdvancedRed")
+    let expert = Color("ExpertPurple")
+
+    // Градиенты
+    var primaryGradient: LinearGradient {
+        LinearGradient(
+            colors: [Color("PrimaryPurple"), Color("SecondaryBlue")],
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
     }
 
-//enum SelecledColor: String {
-//    case swift = "Orange"
-//    case swiftUI = "Purple"
-//    case uIKit = "Blue"
-//    case accent = "AccentColor"
-//}
+    var accentGradient: LinearGradient {
+        LinearGradient(
+            colors: [Color("AccentOrange"), Color("WarningYellow")],
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
+    }
 
+    var successGradient: LinearGradient {
+        LinearGradient(
+            colors: [Color("SuccessGreen"), Color("MintGreen")],
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
+    }
+}

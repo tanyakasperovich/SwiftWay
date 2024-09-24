@@ -10,7 +10,7 @@ import SwiftUI
 
 class NoteViewModel: ObservableObject {
     
-    let manager = SwiftWayManager.instance
+    let manager = SwiftWayManager.shared
     @Published var notes: [NoteEntity] = []
     @Published var noteURLs: [URLEntity] = []
     @Published var sections: [SectionEntity] = []
@@ -149,54 +149,8 @@ class NoteViewModel: ObservableObject {
     }
 
     func save() {
-        notes.removeAll()
-        noteURLs.removeAll()
-        sections.removeAll()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            self.manager.save()
-            self.getNotes()
-        }
+           manager.save()
+        getNotes()
     }
     
 }
-
-
-//@MainActor
-//final class NotesViewModel: ObservableObject {
-//    @Published private(set) var isLoading: Bool = false
-//    @Published private(set) var userNotes: [UserNote] = []
-// 
-//    // User Notes ...
-//    func addUserNote(note: UserNote) {
-//        Task {
-//            let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
-//            try? await UserManager.shared.addUserNote(userId: authDataResult.uid, note: note)
-//        }
-//    }
-//    
-//    func getUserNotes() {
-//        Task {
-//        isLoading = true
-//            let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
-//            self.userNotes = try await UserManager.shared.getAllUserNotes(userId: authDataResult.uid)
-//         isLoading = false
-//        }
-//    }
-//    
-//    func removeUserNote(noteId: String) {
-//        Task {
-//            let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
-//            try? await UserManager.shared.removeUserNote(userId: authDataResult.uid, noteId: noteId)
-//             getUserNotes()
-//        }
-//    }
-//    
-//    func updateUserNote(noteId: String) {
-//        Task {
-//            let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
-//            try? await UserManager.shared.updateUserNote(userId: authDataResult.uid, noteId: noteId, noteTitle: "noteTitle", noteDescription: "noteDescription", noteURL: "noteURL")
-//            getUserNotes()
-//        }
-//    }
-//}

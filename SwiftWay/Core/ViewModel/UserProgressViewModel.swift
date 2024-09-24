@@ -29,7 +29,10 @@ final class UserProgressViewModel: ObservableObject {
     
     func addUserProgress(progress: UserProgress) {
         Task {
-            let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
+            guard let authDataResult = try? AuthenticationManager.shared.getAuthenticatedUser() else {
+                print("User not authenticated")
+                return
+            }
             try? await UserManager.shared.addUserProgress(userId: authDataResult.uid, progress: progress)
         }
         getAllUserProgress()
@@ -38,14 +41,20 @@ final class UserProgressViewModel: ObservableObject {
 
        func getAllUserProgress() {
            Task {
-               let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
+               guard let authDataResult = try? AuthenticationManager.shared.getAuthenticatedUser() else {
+                   print("User not authenticated")
+                   return
+               }
                self.userProgress = try await UserManager.shared.getAllUserProgress(userId: authDataResult.uid)
             }
        }
        
        func removeUserProgress(progressId: String) {
            Task {
-               let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
+               guard let authDataResult = try? AuthenticationManager.shared.getAuthenticatedUser() else {
+                   print("User not authenticated")
+                   return
+               }
                try? await UserManager.shared.removeUserProgress(userId: authDataResult.uid, progressId: progressId)
                getAllUserProgress()
            }
@@ -53,7 +62,10 @@ final class UserProgressViewModel: ObservableObject {
        
        func updateUserProgress(progressId: String, quizScore: Int) {
            Task {
-               let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
+               guard let authDataResult = try? AuthenticationManager.shared.getAuthenticatedUser() else {
+                   print("User not authenticated")
+                   return
+               }
                try? await UserManager.shared.updateUserProgress(userId: authDataResult.uid, progressId: progressId, quizScore: quizScore)
                getAllUserProgress()
            }

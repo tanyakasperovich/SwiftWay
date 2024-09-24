@@ -11,10 +11,9 @@ import SwiftUI
 struct ProgressSectionView: View {
     @Binding var showAddEducationTaskView: Bool
     @Binding var showAddWorkTaskView: Bool
-    //@State var showSection: Bool = true
     @AppStorage("isShowingSectionProgress") var isShowingSectionProgress: Bool = true
     var selectedProfession: Profession
-    
+
     var body: some View {
         VStack(alignment: .leading) {
             Button {
@@ -25,11 +24,11 @@ struct ProgressSectionView: View {
                         .foregroundStyle(Color.theme.fontColor.opacity(0.7))
                         .bold()
                         .padding(.trailing, 5)
-                    
+
                     HeaderText(text: ("Progress").uppercased(), color: .theme.fontColorBW.opacity(0.7))
-                                      
+
                     Spacer()
-                    
+
                     Image(systemName: isShowingSectionProgress ? "chevron.down" : "chevron.right")
                         .bold()
                         .foregroundStyle(Color.theme.fontColorBW)
@@ -38,26 +37,26 @@ struct ProgressSectionView: View {
                 .padding(.horizontal)
                 .padding(.bottom, 5)
             }
-            
+
             if isShowingSectionProgress {
                 HStack(alignment: .top) {
                     // Задачи по обучению и по проекту......
                     VStack(alignment: .leading) {
                         // Задачи по обучению....
                         EducationTaskCardView(showAddEducationTaskView: $showAddEducationTaskView)
-                        
+
                         // Задачи по проекту....
                         WorkTaskCardView(showAddWorkTaskView: $showAddWorkTaskView)
                     }
-                    
+
                     // Общий прогресс по уровням...
                     LevelsProgress_CardView()
                 }
                 // .padding(.bottom, 5)
             }
-            
+
         }
-       // .padding(.top, 10)
+        // .padding(.top, 10)
     }
 }
 
@@ -72,7 +71,7 @@ struct EducationTaskCardView: View {
     @State private var showEducationTaskProgressView: Bool = false
     @Binding var showAddEducationTaskView: Bool
     var dayTaskProgress = 10
-    
+
     var body: some View {
         VStack(alignment: .leading) {
             Text("Задачи по обучению")
@@ -80,49 +79,46 @@ struct EducationTaskCardView: View {
                 .bold()
                 .padding(.horizontal)
                 .foregroundStyle(Color.theme.fontColorBW)
-            
+
             if dayTaskProgress > 0 {
                 Button {
                     showEducationTaskProgressView = true
                 } label: {
                     CardView(content:
-                          HStack {
-                            ZStack {
-                                                                 Circle()
-                                                                     .frame(height: 25)
-                                                                     .foregroundColor(.theme.darkPinkColor)
-                                                                     .opacity(0.5)
-                             
-                                                                 Circle()
-                                                                     .frame(height: 15)
-                                                                     .foregroundColor(.white)
-                                                                     .opacity(0.7)
-                                                             }
-                             
-                            Text("\(dayTaskProgress) %")
-                                .font(.body)
-                                .bold()
-                                .padding(.horizontal, 5)
-                                .foregroundStyle(Color.theme.fontColorBW)
-                                .opacity(0.9)
-                                .lineLimit(1)
-                             }
+                                HStack {
+                        ZStack {
+                            Circle()
+                                .frame(height: 25)
+                                .foregroundColor(.theme.darkPinkColor)
+                                .opacity(0.5)
+
+                            Circle()
+                                .frame(height: 15)
+                                .foregroundColor(.white)
+                                .opacity(0.7)
+                        }
+
+                        Text("\(dayTaskProgress) %")
+                            .font(.body)
+                            .bold()
+                            .padding(.horizontal, 5)
+                            .foregroundStyle(Color.theme.fontColorBW)
+                            .opacity(0.9)
+                            .lineLimit(1)
+                    }
                         .padding(.vertical)
                              , color: .accentColor)
-                    
+
                 }
             } else {
                 Button {
                     showAddEducationTaskView = true
                 } label: {
-                    CardView(content: 
-                                CirclePrimaryButton(imageName: "plus", backgroundColor: .theme.darkPinkColor, imageColor: .white)
-                             
-                             //   PBView(content: Image(systemName: "plus").padding(5), color: .theme.darkPinkColor, isSet: .constant(true))
-                             , color: .accentColor)
+                    CardView(content:
+                                CirclePrimaryButton(imageName: "plus", backgroundColor: .theme.darkPinkColor, imageColor: .white), color: .accentColor)
                 }
             }
-            
+
         }
         .sheet(isPresented: $showEducationTaskProgressView, content: {
             EducationTaskView()
@@ -136,7 +132,7 @@ struct EducationTaskView: View {
     var body: some View {
         VStack {
             Text("Education Task")
-            
+
         }
     }
 }
@@ -146,58 +142,54 @@ struct WorkTaskCardView: View {
     @State private var showWorkTaskProgressView: Bool = false
     @Binding var showAddWorkTaskView: Bool
     var monthTaskProgress = 0
-    
+
     var body: some View {
         VStack(alignment: .leading) {
-                Text("Задачи по проекту")
-                    .font(.body)
-                    .bold()
-                    .padding(.horizontal)
-                    .foregroundStyle(Color.theme.fontColorBW)
-                //.opacity(0.7)
-            
+            Text("Задачи по проекту")
+                .font(.body)
+                .bold()
+                .padding(.horizontal)
+                .foregroundStyle(Color.theme.fontColorBW)
+
             if monthTaskProgress > 0 {
                 Button {
                     showWorkTaskProgressView = true
                 } label: {
                     CardView(content:
-                          HStack {
-                            ZStack {
-                                                                 Circle()
-                                                                     .frame(height: 25)
-                                                                     .foregroundColor(.theme.iceColor)
-                                                                     .opacity(0.5)
-                             
-                                                                 Circle()
-                                                                     .frame(height: 15)
-                                                                     .foregroundColor(.white)
-                                                                     .opacity(0.7)
-                                                             }
-                             
-                            Text("\(monthTaskProgress) %")
-                                .font(.body)
-                                .bold()
-                                .padding(.horizontal, 5)
-                                .foregroundStyle(Color.theme.fontColorBW)
-                                .opacity(0.9)
-                                .lineLimit(1)
-                             }
+                                HStack {
+                        ZStack {
+                            Circle()
+                                .frame(height: 25)
+                                .foregroundColor(.theme.iceColor)
+                                .opacity(0.5)
+
+                            Circle()
+                                .frame(height: 15)
+                                .foregroundColor(.white)
+                                .opacity(0.7)
+                        }
+
+                        Text("\(monthTaskProgress) %")
+                            .font(.body)
+                            .bold()
+                            .padding(.horizontal, 5)
+                            .foregroundStyle(Color.theme.fontColorBW)
+                            .opacity(0.9)
+                            .lineLimit(1)
+                    }
                         .padding(.vertical)
                              , color: .accentColor)
                 }
-                
+
             } else {
                 Button {
                     showAddWorkTaskView = true
                 } label: {
-                    CardView(content: 
-                              //  PBView(content: Image(systemName: "plus").padding(5), color: .theme.iceColor, isSet: .constant(true))
-                      
-                                CirclePrimaryButton(imageName: "plus", backgroundColor: .theme.iceColor, imageColor: .white)
-                             , color: .accentColor)
+                    CardView(content:
+                             CirclePrimaryButton(imageName: "plus", backgroundColor: .theme.iceColor, imageColor: .white), color: .accentColor)
                 }
             }
-            
+
         }
         .sheet(isPresented: $showWorkTaskProgressView, content: {
             WorkTaskView()
@@ -208,7 +200,7 @@ struct WorkTaskCardView: View {
 }
 
 struct WorkTaskView: View {
-    
+
     var body: some View {
         VStack {
             Text("Work Task")
@@ -221,7 +213,7 @@ struct WorkTaskView: View {
 struct LevelsProgress_CardView: View {
     @EnvironmentObject var roadMapViewModel: RoadMapViewModel
     @State private var showLevelsProgressView: Bool = false
-    
+
     var body: some View {
         VStack {
             Text("Общий прогресс")
@@ -229,7 +221,7 @@ struct LevelsProgress_CardView: View {
                 .bold()
                 .padding(.horizontal)
                 .foregroundStyle(Color.theme.fontColorBW)
-            
+
             Button {
                 showLevelsProgressView = true
             } label: {
@@ -238,7 +230,7 @@ struct LevelsProgress_CardView: View {
                     if roadMapViewModel.isLoadingLevels {
                         ProgressView()
                             .progressViewStyle(CircularProgressViewStyle(tint: .accentColor))
-                            //.scaleEffect(2)
+                        //.scaleEffect(2)
                     } else {
                         if roadMapViewModel.levels.isEmpty {
                             SubHeaderText(text: "No Item", color: .secondary)
@@ -256,7 +248,7 @@ struct LevelsProgress_CardView: View {
                 }
                          , color: .accentColor)
             }
-    
+
         }
         .sheet(isPresented: $showLevelsProgressView, content: {
             LevelsProgressView()
@@ -267,7 +259,7 @@ struct LevelsProgress_CardView: View {
 }
 
 struct LevelsProgressView: View {
-    
+
     var body: some View {
         Text("Levels Progress View")
     }

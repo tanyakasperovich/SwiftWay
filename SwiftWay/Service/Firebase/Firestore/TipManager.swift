@@ -9,7 +9,7 @@ import SwiftUI
 
 import SwiftUI
 import FirebaseFirestore
-import FirebaseFirestoreSwift
+// import FirebaseFirestoreSwift
 
 // MARK: - Tips...
 final class TipManager {

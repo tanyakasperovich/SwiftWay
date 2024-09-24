@@ -40,7 +40,10 @@ final class MentorViewModel: ObservableObject {
         
     func updateUserMentorProfile(mentor: Mentor) async throws {
         Task {
-            let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
+            guard let authDataResult = try? AuthenticationManager.shared.getAuthenticatedUser() else {
+                print("User not authenticated")
+                return
+            }
             try? await MentorManager.shared.updateMentor(userId: authDataResult.uid, mentorId: mentor.id, mentorName: mentor.name ?? "", mentorImage: mentor.image ?? "", price: mentor.price ?? 0.0, mentorLinkedInLink: mentor.linkedInLink ?? "", mentorInstagramLink: mentor.instagramLink ?? "", mentorYouTubeLink: mentor.youTubeLink ?? "", mentorLink: mentor.link ?? "", mentorDescription: mentor.description ?? "", mentorSkills: [])
         }
     }

@@ -12,33 +12,42 @@ import SwiftUI
 final class TaskViewModel: ObservableObject {
     @Published private(set) var isLoading: Bool = false
     @Published private(set) var userTasks: [UserTask] = []
- 
-    func getUserTasks() {
-        Task {
-        isLoading = true
-            
-            let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
+
+    func getUserTasks() async {
+        do {
+            isLoading = true
+            guard let authDataResult = try? AuthenticationManager.shared.getAuthenticatedUser() else {
+                print("User not authenticated")
+                return
+            }
             self.userTasks = try await UserManager.shared.getAllUserTasks(userId: authDataResult.uid)
-            
-         isLoading = false
+        } catch {
+            print("Failed to get tasks: \(error)")
+            // Показать алерт пользователю
         }
+        isLoading = false
     }
-    
+
     func removeUserTask(taskId: String) {
         Task {
-            let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
+            guard let authDataResult = try? AuthenticationManager.shared.getAuthenticatedUser() else {
+                print("User not authenticated")
+                return
+            }
             try? await UserManager.shared.removeUserTask(userId: authDataResult.uid, taskId: taskId)
-            getUserTasks()
+            await getUserTasks()
         }
     }
-    
+
     func updateUserTask(taskId: String) {
         Task {
-            let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
+            guard let authDataResult = try? AuthenticationManager.shared.getAuthenticatedUser() else {
+                print("User not authenticated")
+                return
+            }
             try? await UserManager.shared.updateUserTask(userId: authDataResult.uid, taskId: taskId)
-            getUserTasks()
+            await getUserTasks()
         }
     }
-    
 }
 

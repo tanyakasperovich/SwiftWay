@@ -15,11 +15,15 @@ struct ContentView: View {
         ZStack {
             if !showSignInView {
                 TabBarView(showSignInView: $showSignInView)
-           }
+            }
         }
         .onAppear {
-            let authUser = try? AuthenticationManager.shared.getAuthenticatedUser()
-            self.showSignInView = authUser == nil
+            Task {
+                let authUser = try? await AuthenticationManager.shared.getAuthenticatedUser()
+                await MainActor.run {
+                    self.showSignInView = authUser == nil
+                }
+            }
         }
         .fullScreenCover(isPresented: $showSignInView) {
             NavigationStack {

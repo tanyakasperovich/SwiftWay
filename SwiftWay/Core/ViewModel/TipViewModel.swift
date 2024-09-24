@@ -27,7 +27,10 @@ final class TipViewModel: ObservableObject {
     
     func addUserFavoriteTip(tipId: String) {
         Task {
-            let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
+            guard let authDataResult = try? AuthenticationManager.shared.getAuthenticatedUser() else {
+                print("User not authenticated")
+                return
+            }
             try? await UserManager.shared.addUserFavoriteTip(userId: authDataResult.uid, tipId: tipId)
         }
     }

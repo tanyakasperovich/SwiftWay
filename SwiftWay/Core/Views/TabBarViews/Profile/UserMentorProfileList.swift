@@ -68,7 +68,7 @@ struct MentorProfileView: View {
     var body: some View {
         CardView(content:
                     VStack(alignment: .leading) {
-            // Phote...
+            // Photo...
             VStack(alignment: .center) {
                 HStack(alignment: .bottom) {
                     VStack {
@@ -119,23 +119,7 @@ struct MentorProfileView: View {
                     .foregroundStyle(Color.theme.fontColor)
                     .font(.title3)
                     .bold()
-                
-                // Speciality...
-                //                    HStack {
-                //                        ForEach(mentor.professionsID, id: \.self) {professionId in
-                //                            HStack {
-                //                                Text(professionId ?? "")
-                //
-                //                                if mentor.professionsID.last != profession {
-                //                                    Text("/")
-                //                                }
-                //                            }
-                //                            .foregroundStyle(Color.secondary)
-                //                            .font(.subheadline)
-                //                        }
-                //                    }
-                //                    .padding(.bottom)
-                
+
                 // BOOK + Message...
                 HStack {
                     Button {

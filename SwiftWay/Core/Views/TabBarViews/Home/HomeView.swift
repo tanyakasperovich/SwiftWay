@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-// MARK: - Picker View...
+// MARK: - Home View...
 struct HomeView: View {
     @State private var showAddEducationTaskView: Bool = false
     @State private var showAddWorkTaskView: Bool = false
@@ -17,7 +17,6 @@ struct HomeView: View {
     
     var body: some View {
         VStack {
-            
             if let user = profileViewModel.user {
                 
                 ScrollView(.vertical, showsIndicators: false) {
@@ -27,8 +26,6 @@ struct HomeView: View {
                                 .padding(.bottom, 5)
                     
                     if let selectedProfession = user.selectedProfession {
-//                        Text(selectedProfession)
-//                        Text(roadMapViewModel.selectedProfession?.title ?? "")
                         VStack(alignment: .leading, spacing: 15) {
                             ProgressSectionView(showAddEducationTaskView: $showAddEducationTaskView, showAddWorkTaskView: $showAddWorkTaskView, selectedProfession: roadMapViewModel.selectedProfession ?? Profession(title: "", sectorId: "", color: "", image: ""))
                                 .padding(.horizontal, 5)
@@ -59,15 +56,12 @@ struct HomeView: View {
                     ProgressView()
                 }
         }
-        .background(BackgroundView(color: Color(roadMapViewModel.selectedProfession?.color ?? "Lime"), image: roadMapViewModel.selectedProfession?.image ?? ""))
         .sheet(isPresented: $showAddEducationTaskView, content: {
-           // AddEducationTaskView(showAddEducationTaskView: $showAddEducationTaskView)
             AddTaskView(selectedView: $selectedEducationTask, showAddTaskView: $showAddEducationTaskView)
                 .presentationDetents([.large, .large])
                 .presentationDragIndicator(.visible)
         })
         .sheet(isPresented: $showAddWorkTaskView, content: {
-          //  AddWorkTaskView(showAddWorkTaskView: $showAddWorkTaskView)
             AddTaskView(selectedView: $selectedWorkTask, showAddTaskView: $showAddWorkTaskView)
                 .presentationDetents([.large, .large])
                 .presentationDragIndicator(.visible)
