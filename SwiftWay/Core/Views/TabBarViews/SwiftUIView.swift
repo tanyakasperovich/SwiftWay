@@ -20,17 +20,7 @@ struct SwiftUIView: View {
                     .frame(width: 32, height: 32)
             },
                        backgroundColor: .accentColor)
-//            
-//            ButtonView(content:
-//                        VStack {
-//                Image(systemName: "play.fill")
-//                    .foregroundStyle(Color.accentColor)
-//                    //.hueRotation(Angle.degrees(170))
-//                    .grayscale(5.0)
-//                    .frame(width: 32, height: 32)
-//            },
-//                       backgroundColor: .accentColor)
-            
+
             ButtonView(content:
                         VStack {
                 Image(systemName: "play.fill")
